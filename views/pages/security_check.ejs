@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+
+	<% include ../partials/style_login %>
+
+</head>
+
+<body id="security_check">
+	
+	<div class="container">
+		<div class="login-form">			
+			<div class="main-div">
+				<div class="panel">
+			   		<h2>Security Question</h2>
+			   		<p><%= question %></p>
+				</div>
+				<form method="POST" action="/security_check">
+					<div class="form-group">
+						<input type="text" name="security_answer" class="form-control" id="securityAnswer" placeholder="Answer" required>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

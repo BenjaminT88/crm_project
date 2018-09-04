@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CRM</title>
+  
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+  <!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  
+  <!-- Full Calendar links -->
+  <link href='/assets/css/fullcalendar.min.css' rel='stylesheet' />
+  <link href='/assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+  <script src='/assets/lib/moment.min.js'></script>
+  <script src='/assets/lib/jquery.min.js'></script>
+  <script src='/assets/javascript/fullcalendar.min.js'></script>
+  
+
+  <link href='/assets/css/style.css' rel='stylesheet' />
+  <script src='/assets/javascript/jax.js'></script>
+  
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">BS CRM</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+          <!-- <li class="nav-item active"> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/calendar">Calendar (to be main page)</a>
+          </li>
+            <li id="userIDone" class="nav-item">
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/deals">Deals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/initnotes">Notes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tasks</a>
+          </li>
+            <li id="userIDtwo" class="nav-item dropdown">
+              
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" style="color: white">
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user-alt"></i>
+                   Logged in as 
+                  <span id="currentUser" class="align-baseline"></span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="/login">Log In</a>
+                <a class="dropdown-item" href="/signup">Sign Up</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Log Out</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+      
+      <div id="welcomebar" class="bg-secondary fixed-top">
+            <span id="welcomeMsg" class="align-baseline"></span>
+          <span id="showdate"></span>
+      </div>
+
+  <div id='calendar'></div>
+
+  <footer>
+    <p class="text-center text-muted">&copy; Copyright 2018 BS CRM</p>
+  </footer>
+
+</body>
+</html>

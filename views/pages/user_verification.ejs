@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+
+	<% include ../partials/style_login %>
+</head>
+
+<body id="Retrieve_Password">
+	
+	<div class="container">
+		<div class="login-form">
+			
+			<div class="main-div">
+				<div id="backarrow">
+					<a href="/login"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:rgb(102, 102, 102)"></i></a>
+				</div>
+				<div class="panel">
+			   		<h2>Retrieve Password</h2>
+			   		<p>Please enter your email</p>
+				</div>
+				<form method="POST" action="/user_verification">
+					<div class="form-group">
+						<input type="email" name="email" class="form-control" placeholder="Email Address" required>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

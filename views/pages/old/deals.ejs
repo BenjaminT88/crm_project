@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+
+	<header>
+		<% include ../partials/header %>
+	</header>
+
+	<main>
+		<div class="row">
+			<div class="jumbotron">
+				<h2>Deals</h2>
+				<table class="table">
+					<thead class="thead-dark">
+					  <tr>
+						<th scope="col">Company</th>
+						<th scope="col">Amount</th>
+						<th scope="col">Rep</th>
+						<th scope="col">Stage</th>
+						<th scope="col">Contact Name</th>
+						<th scope="col">Time</th>
+
+					  </tr>
+					</thead>
+					<tbody>
+						<% data.forEach(function(data) { %>
+							<tr>
+								<th scope="row"><%= data.company %></th>
+								<td><%= data.amount %></td>
+								<td><%= data.rep_first_name %> <%= data.rep_last_name %></td>
+								<td><%= data.stage %></td>
+								<td><%= data.contact_first_name %> <%= data.contact_last_name %></td>
+								<td><%= data.tim %></td>
+							</tr>
+						<% }); %>
+					</tbody>
+				  </table>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<% include ../partials/footer %>
+	</footer>
+	
+</body>
+</html>

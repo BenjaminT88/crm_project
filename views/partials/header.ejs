@@ -1,0 +1,103 @@
+<style>
+	#welcomebar {
+		padding-top: 65px; 
+		padding-left: 15px;
+		color: white; 
+		font-size: 24px;
+		height: 110px;
+		z-index: 1029;
+	}
+	#showdate {
+		float: right;
+		padding-right: 15px;
+	}
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	<a class="navbar-brand" href="/">BS CRM</a>
+	
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+		<!-- <li class="nav-item active"> -->
+		<li class="nav-item">
+			<a class="nav-link" href="/calendar">Calendar (to be main page)</a>
+		</li>
+		<% if(session.role_id == 1) { %>
+			<li class="nav-item">
+				<a class="nav-link" href="/accounts">Accounts</a>
+			</li>
+		<% } %>
+		<li class="nav-item">
+			<a class="nav-link" href="/deals">Deals</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/initnotes">Notes</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#">Tasks</a>
+		</li>
+		<% if(session.role_id == 2) { %>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Manage
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="/accounts">Accounts</a>
+					<a class="dropdown-item" href="/users">Users</a>
+				</div>
+			</li>
+		<% } %>
+		</ul>
+		<form class="form-inline my-2 my-lg-0" style="color: white">
+			<div class="btn-group">
+				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user-alt"></i>
+						 Logged in as 
+					<% if(locals.session) { %>
+						<span class="align-baseline"><%= session.first_name %> <%= session.last_name %></span>
+					<% } %>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right">
+					<a class="dropdown-item" href="/login">Log In</a>
+					<a class="dropdown-item" href="/signup">Sign Up</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="/logout">Log Out</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</nav>
+
+<div id="welcomebar" class="bg-secondary fixed-top">
+		<% if(locals.session) { %>
+			<span class="align-baseline">Welcome, <%= session.first_name %>!</span>
+		<% } %></a>
+		<span id="showdate"></span>
+</div>
+					
+
+
+<!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+	// Array of day names
+	var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
+					"Thursday","Friday","Saturday");
+	// Array of month Names
+	var monthNames = new Array(
+	"January","February","March","April","May","June","July",
+	"August","September","October","November","December");
+
+	var now = new Date();
+	$('#showdate').text((dayNames[now.getDay()] + ", " + 
+	monthNames[now.getMonth()] + " " + 
+	now.getDate() + ", " + now.getFullYear()));
+</script>

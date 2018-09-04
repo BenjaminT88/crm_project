@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+
+	<% include ../partials/style_signup_create_user %>
+
+</head>
+
+<body id="SignUpForm">
+	
+	<div class="container">
+		<div class="signUp-form">
+			<div class="main-div SignUpForm">
+				<div class="panel">
+			   		<h2>Sign Up</h2>
+			   		<p>All fields are required</p>
+				</div>
+				
+				<form method="POST" action="/signup">
+					<div class="row form-group">
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" name="first_name" placeholder="First Name" type="text"
+									required autofocus/>
+							</div>
+							<div class="col-xs-6 col-md-6">
+								<input class="form-control" name="last_name" placeholder="Last Name" type="text" required/>
+							</div>
+						</div>
+
+					<div class="form-group">
+						<input type="email" name="email" class="form-control" placeholder="Email Address" required>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control" placeholder="Password" required>
+					</div>
+					<div class="form-group">
+						<select class="form-control" name="security_question_id" required>
+							<% dat.forEach(function(question) { %>
+								<option value="<%= question.id %>"><%= question.security_question %></option>
+							<% }); %>
+						</select>
+					</div>
+					<div class="form-group">
+						<input type="text" name="security_answer" class="form-control" placeholder="Security Answer" required>
+					</div>
+					
+					<div class="form-group row">
+						<span id="position"><strong>Position:	</strong></span>
+						<div class="col-6 col-md-4">
+							<label class="radio-inline">
+								<input type="radio" name="role_id" value="1" checked/>Account Executive</label>
+						</div>	
+						<div class="col-6 col-md-4">
+						<label class="radio-inline">
+							<input type="radio" name="role_id" value="2" />Sales Manager</label>
+						</div>	
+						<label class="radio-inline">
+					</div>
+					<div class="form-group row">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="gridCheck1" required>
+							<label class="form-check-label" for="gridCheck1">
+								I have read and agreed to the Privacy Policy
+							</label>
+						</div>
+					</div>
+					<div id="backarrow">
+						<a href="/login"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:rgb(102, 102, 102)"></i></a>
+					</div>
+					<button type="submit" class="btn btn-primary">Sign Up</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	
+</body>
+</html>
