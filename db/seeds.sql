@@ -10,13 +10,13 @@ UPDATE accounts SET user_id = 1 WHERE id < 51;
 UPDATE accounts SET user_id = 2 WHERE id > 50;
 UPDATE accounts SET user_id = 3 WHERE id = 50;
 
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (1, 15, 50000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (1, 1, 100000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (2, 50, 100000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (3, 20, 70000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (2, 65, 180000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (1, 90, 295000);
-INSERT INTO account_stages (stage_id, account_id, amount) VALUES (1, 52, 700000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("LOC Deal", 1, 15, 50000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("CT Scanner", 1, 1, 100000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("WC Loan", 2, 50, 100000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("MRI Deal", 3, 20, 70000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("LOC Deal", 2, 65, 180000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("Truck Deal", 1, 90, 295000);
+INSERT INTO account_stages (name, stage_id, account_id, amount) VALUES ("Tax Purchase Deal", 1, 52, 700000);
 
 INSERT INTO notes (note, user_id) VALUES("Got past gatekeeper. CFO showed interest in a 50000 LOC.", 1);
 INSERT INTO account_stage_notes (account_stage_id, note_id) VALUES(1, 1);
@@ -32,3 +32,11 @@ INSERT INTO notes (note, user_id) VALUES("Owner is updating truck fleet by next 
 INSERT INTO account_stage_notes (account_stage_id, note_id) VALUES(6, 6);
 INSERT INTO notes (note, user_id) VALUES("CFO is interested in year-end purchases for tax purposes", 2);
 INSERT INTO account_stage_notes (account_stage_id, note_id) VALUES(7, 7);
+
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Call CFO", "2018-12-01 12:00:00", 1);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Call owner and refresh his memory", "2018-11-15 12:00:00", 2);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Quote WC Rates", "2018-09-09 10:00:00", 3);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Follow up on quotes", "2018-09-06 08:00:00", 4);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Get rates from underwriting", "2018-09-03 16:30:00", 5);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Follow up with owner/controller", "2019-01-05 12:00:00", 6);
+INSERT INTO todos (todo, due, account_stage_id) VALUES ("Call CFO/controller and find out what they want to buy", "2018-10-15 12:00:00", 7);
