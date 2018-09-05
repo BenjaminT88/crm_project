@@ -5,6 +5,10 @@ var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var userIDtempReset;
 
+// method override
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 //you need this to be able to process information sent to a POST route
 	var bodyParser = require('body-parser');
 
@@ -214,11 +218,44 @@ app.get('/', function(req, res) {
 // ===================
 	app.get('/deals', isAuthenticated, function(req, res) {
 		connection.query('select account_stages.name, account_stages.account_id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage from account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id left join accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id where accounts.user_id = ?', [req.session.user_id], function(err, results){
+			if (err) throw err;
 			res.render('pages/deals', {
 				data: results
 			});
 		});
 	});	
+
+// ===================
+// create new deal from account page
+// ===================
+	app.get('/create_deal/:id', isAuthenticated, function(req, res){
+		connection.query('SELECT * FROM accounts WHERE id = ?', [req.params.id],function (error, results, fields) {
+			var newDealTempOb = results[0];
+			connection.query('SELECT * FROM stages', function (err, resp, fie) {
+				res.render('pages/create_deal', {
+					data: resp,
+					dat: newDealTempOb
+				});
+			});
+		});
+	});
+
+	app.post('/create_deal', function(req, res){
+		connection.query("INSERT INTO account_stages SET name = ?, amount = ?, account_id = ?, stage_id = ?", [req.body.name, req.body.amount, req.body.account_id, req.body.stage_id], function(error, results, fields) {
+			res.redirect('/deals');
+		  }
+		);
+	})
+
+// ===================
+// create new deal from deals page -- TO BE COMPLETED
+// ===================	
+	// app.post('/create_deal', function(req, res){
+	// 	connection.query("INSERT INTO account_stages SET ?", req.body, function(err, response) {
+	// 		res.redirect('/deals');
+	// 	  }
+	// 	);
+	// })
 
 // ===================
 // notes initialization page - choose the company of which the notes you would like to see
@@ -314,7 +351,7 @@ app.get('/', function(req, res) {
 		res.render('pages/create_new_account');
 	});
 
-	app.post('/create', isAuthenticated, function(req, res){
+	app.post('/create_account', function(req, res){
 		connection.query("INSERT INTO accounts SET ?", req.body, function(err, response) {
 			res.redirect('/main');
 		  }
@@ -335,10 +372,10 @@ app.get('/', function(req, res) {
 // ===================	
 //	edit account page - only manager can do this
 // ===================
-	app.get('/edit/:id', isAuthenticated, function(req, res) {
+	app.get('/edit_account/:id', isAuthenticated, function(req, res) {
 		connection.query('SELECT * FROM accounts where id = ?', [req.params.id], function(err, results){
-			res.render('pages/edit_account_manager', {
-				data: results
+			res.render('pages/edit_account', {
+				data: results[0]
 			});
 		});
 	});
@@ -346,28 +383,28 @@ app.get('/', function(req, res) {
 // ===================
 // update account
 // ===================
-	app.post('/update/:id', isAuthenticated, function(req, res){
-		console.log(req.body, req.params.id);
+	app.put('/update_account/:id', function(req, res){
 		var query = connection.query(
-		"UPDATE accounts SET first_name = ?, last_name = ?, email = ?, company = ?, address = ?, city = ?, state = ?, zip = ?, phone = ?, cell = ?, annual_revenue = ?, user_id = ?  WHERE id = ?",
-		[req.body.first_name, req.body.last_name, req.body.email, req.body.company,  req.body.address, req.body.city, req.body.state, req.body.zip, req.body.phone, req.body.cell, req.body.annual_revenue, req.body.user_id, req.params.id],
-		function(err, response) {
-			res.redirect('/main');
-		}
+		  "UPDATE accounts SET ? WHERE id = ?",
+		  [req.body, req.params.id],
+		  function(err, response) {
+			if (err) throw err;
+			res.redirect('/accounts');
+		  }
 		);
 	});
 
 // ===================
-// delete account - manager view ====== worked, but need to fix layout
+// delete account
 // ===================
-	app.post('/delete/:id', isAuthenticated, function(req, res){
-		console.log("/delete/" + req.params.id);
+	app.delete('/delete_account/:id', function(req, res){	
 		var query = connection.query(
-		"DELETE FROM accounts WHERE id = ?",
-		[req.params.id],
-		function(err, response) {
-			res.redirect('/main');
-		}
+		  "DELETE FROM accounts WHERE id = ?",
+		  [req.params.id],
+		  function(err, response) {
+			if (err) throw err;
+			res.redirect('/accounts');
+		  }
 		);
 	})
 
@@ -375,7 +412,7 @@ app.get('/', function(req, res) {
 // users table
 // ===================
 	app.get('/users', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM users LEFT JOIN roles ON users.role_id = roles.id', function(err, results){
+		connection.query('SELECT users.id, users.first_name, users.last_name, users.email, users.role_id, roles.role FROM users LEFT JOIN roles ON users.role_id = roles.id;', function(err, results){
 			res.render('pages/users', {
 				data: results
 			});
@@ -399,43 +436,39 @@ app.get('/', function(req, res) {
 	});
 
 // ===================	
-// edit users page - manager view
+// edit users page
 // ===================
-	app.get('/users/edit/:id', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM users', function(err, results){
+	app.get('/edit_user/:id', isAuthenticated, function(req, res) {
+		connection.query('SELECT * FROM users where id = ?', [req.params.id], function(err, results){
 			res.render('pages/edit_user', {
-				data: results
+				data: results[0]
 			});
 		});
 	});
 
 // ===================
-//user update - manager view
+//user update
 // ===================
-	app.post('/user/update/:id', isAuthenticated, function(req, res){
-		// console.log(req.body, req.params.id);
+	app.put('/update_user/:id', function(req, res){
 		var query = connection.query(
-		"UPDATE users SET first_name = ?, last_name = ?, email = ?, role_id = ?  WHERE id = ?",
-		[req.body.first_name, req.body.last_name, req.body.email,  req.body.role_id, req.params.id],
-		function(err, response) {
+		  "UPDATE users SET ? WHERE id = ?", [req.body, req.params.id], function(err, response) {
+			if (err) throw err;
 			res.redirect('/users');
-		}
+		  }
 		);
 	});
 
 // ===================
-// user delete - manager view ====== worked, but need to fix layout
+// user delete
 // ===================
-	app.post('/user/delete/:id', isAuthenticated, function(req, res){
-		// console.log("/user/delete/" + req.params.id);
+	app.delete('/delete_user/:id', function(req, res){	
 		var query = connection.query(
-		"DELETE FROM users WHERE id = ?",
-		[req.params.id],
-		function(err, response) {
+		  "DELETE FROM users WHERE id = ?", [req.params.id], function(err, response) {
+			if (err) throw err;
 			res.redirect('/users');
-		}
+		  }
 		);
-	})
+	});
 
 app.listen(3000, function(){
 	console.log('listening on 3000');

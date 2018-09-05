@@ -43,7 +43,6 @@
 						<th scope="col">Cell</th>
 						<th scope="col">Annual Revenue</th>
 					</tr>
-					
 				</thead>
 				<tbody>
 					<% for(var i=0; i<data.length; i++) { %>
@@ -54,9 +53,14 @@
 							<td><%= data[i].address%>, <%= data[i].city%>, <%= data[i].state%> <%= data[i].zip%></td>
 							<td><%= data[i].cell%></td>
 							<td><%= data[i].annual_revenue%></td>
+							<td>
+								<form method="GET" action="create_deal/<%=data[i].id %>">
+									<button class="btn btn-outline-warning btn-sm">New Deal</button>
+								</form>
+							</td>
 							<% if(session.role_id == 2) { %>
 								<td>
-									<form method="GET" action="edit/<%=data[i].id %>">
+									<form method="GET" action="edit_account/<%=data[i].id %>">
 										<button class="btn btn-outline-warning btn-sm">EDIT</button>
 									</form>
 								</td>
