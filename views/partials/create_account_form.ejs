@@ -1,0 +1,63 @@
+<div class="container">
+		<div class="signUp-form">
+			<div class="main-div">
+				<div class="panel">
+			   		<h2>Create New Account</h2>
+			   		<p>* fields are required</p>
+				</div>
+				
+				<form id="newaccount" method="POST" action="/create_account">
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" name="first_name" placeholder="First Name" type="text"
+								required autofocus/>
+						</div>
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" name="last_name" placeholder="Last Name" type="text" required/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<input type="email" name="email" class="form-control" placeholder="Email Address">
+						</div>
+						<div class="col-xs-6 col-md-6">
+							<input type="text" name="company" class="form-control" placeholder="Company">
+						</div>
+					</div>
+					<div class="form-group">
+							<input type="text" name="address" class="form-control" placeholder="Address">
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" type="text" name="city" placeholder="City"/>
+						</div>
+						<div class="col col-lg-2">
+							<input class="form-control" type="text" name="state" placeholder="State"/>
+						</div>
+						<div class="col-xs-4 col-md-4">
+							<input class="form-control" type="text" name="zip" placeholder="ZIP"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" type="tel" name="phone" placeholder="Phone"/>
+						</div>
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" type="tel" name="cell" placeholder="Cell" />
+						</div>
+					</div>
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" type="text" name="annual_revenue" placeholder="Annual Revenue"/>
+						</div>
+						<div class="col-xs-6 col-md-6">
+							<input class="form-control" type="text" name="user_id" placeholder="User ID"/>
+						</div>
+					</div>
+
+						<button class="btn btn-primary">Create New Account</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
