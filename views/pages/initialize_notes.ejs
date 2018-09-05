@@ -12,13 +12,13 @@
 	<main>
 		<div class="row">
 			<div class="jumbotron">
-				<h2>Select Account</h2>
+				<h2>Select Company</h2>
 
 				<form method="POST" action="/initnotes">
 					<div class="form-group row">
 						<select class="form-control" name="id" required>
 								<% dat.forEach(function(account) { %>
-										<option value="<%= account.id %>"><%= account.company %></option>
+										<option value="<%= account.account_id %>"><%= account.company %></option>
 								<% }); %>
 						</select>
 					</div>
@@ -28,6 +28,7 @@
 							</div>
 					</div>
 				</form>
+
 			</div>
 		</div>
 	</main>

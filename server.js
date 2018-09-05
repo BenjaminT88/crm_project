@@ -213,7 +213,7 @@ app.get('/', function(req, res) {
 // show all deals
 // ===================
 	app.get('/deals', isAuthenticated, function(req, res) {
-		connection.query('select account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage from account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id left join accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id where accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('select account_stages.name, account_stages.account_id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage from account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id left join accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id where accounts.user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/deals', {
 				data: results
 			});
@@ -235,7 +235,7 @@ app.get('/', function(req, res) {
 // retrieve notes from selected company
 // ===================
 	app.post('/initnotes', function(req, res) {
-		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where accounts.id = ?', [req.body.id],function (error, results, fields) {
+		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
 			var what_user_sees = "";
 			if (error){
 				what_user_sees = 'Something went wrong - please go back to homepage';
@@ -248,7 +248,19 @@ app.get('/', function(req, res) {
 		});
 	});
 
-
+	app.post('/initnotes/:account_id', function(req, res) {
+		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.params.account_id],function (error, results, fields) {
+			var what_user_sees = "";
+			if (error){
+				what_user_sees = 'Something went wrong - please go back to homepage';
+				res.send(what_user_sees);
+			}else{
+				res.render('pages/notes', {
+					dat: results
+				});
+			}
+		});
+	});
 
 // ========================================================================================
 // ========================================================================================
@@ -320,22 +332,10 @@ app.get('/', function(req, res) {
 		});
 	});
 
-
 // ===================	
-//	edit account page
+//	edit account page - only manager can do this
 // ===================
 	app.get('/edit/:id', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts where id = ?', [req.params.id], function(err, results){
-			res.render('pages/edit_account', {
-				edit: results
-			});
-		});
-	});
-
-// ===================	
-//	edit account page - manager view
-// ===================
-	app.get('/manager/edit/:id', isAuthenticated, function(req, res) {
 		connection.query('SELECT * FROM accounts where id = ?', [req.params.id], function(err, results){
 			res.render('pages/edit_account_manager', {
 				data: results
@@ -346,7 +346,7 @@ app.get('/', function(req, res) {
 // ===================
 // update account
 // ===================
-	app.post('/update/:id', function(req, res){
+	app.post('/update/:id', isAuthenticated, function(req, res){
 		console.log(req.body, req.params.id);
 		var query = connection.query(
 		"UPDATE accounts SET first_name = ?, last_name = ?, email = ?, company = ?, address = ?, city = ?, state = ?, zip = ?, phone = ?, cell = ?, annual_revenue = ?, user_id = ?  WHERE id = ?",
@@ -360,7 +360,7 @@ app.get('/', function(req, res) {
 // ===================
 // delete account - manager view ====== worked, but need to fix layout
 // ===================
-	app.post('/delete/:id', function(req, res){
+	app.post('/delete/:id', isAuthenticated, function(req, res){
 		console.log("/delete/" + req.params.id);
 		var query = connection.query(
 		"DELETE FROM accounts WHERE id = ?",
@@ -374,8 +374,8 @@ app.get('/', function(req, res) {
 // ===================	
 // users table
 // ===================
-	app.get('/users', function(req, res) {
-		connection.query('SELECT * FROM users', function(err, results){
+	app.get('/users', isAuthenticated, function(req, res) {
+		connection.query('SELECT * FROM users LEFT JOIN roles ON users.role_id = roles.id', function(err, results){
 			res.render('pages/users', {
 				data: results
 			});
@@ -383,14 +383,14 @@ app.get('/', function(req, res) {
 	});
 
 
-	app.get('/usersjson', function(req, res) {
+	app.get('/usersjson', isAuthenticated, function(req, res) {
 		connection.query('SELECT id, first_name, last_name, email, role_id FROM users', function(err, results){
 			res.json(results)
 		});
 	});
 
 	//this is for later we can get access to the user from the edit page
-	app.get('/usersjson/:id', function(req, res){
+	app.get('/usersjson/:id', isAuthenticated, function(req, res){
 		connection.query('SELECT id, first_name, last_name, email, role_id FROM users WHERE id = ?', [req.params.id], function (error, results, fields) {
 		if (error) throw error;
 		
@@ -401,7 +401,7 @@ app.get('/', function(req, res) {
 // ===================	
 // edit users page - manager view
 // ===================
-	app.get('/users/edit/:id', function(req, res) {
+	app.get('/users/edit/:id', isAuthenticated, function(req, res) {
 		connection.query('SELECT * FROM users', function(err, results){
 			res.render('pages/edit_user', {
 				data: results
@@ -412,7 +412,7 @@ app.get('/', function(req, res) {
 // ===================
 //user update - manager view
 // ===================
-	app.post('/user/update/:id', function(req, res){
+	app.post('/user/update/:id', isAuthenticated, function(req, res){
 		// console.log(req.body, req.params.id);
 		var query = connection.query(
 		"UPDATE users SET first_name = ?, last_name = ?, email = ?, role_id = ?  WHERE id = ?",
@@ -426,7 +426,7 @@ app.get('/', function(req, res) {
 // ===================
 // user delete - manager view ====== worked, but need to fix layout
 // ===================
-	app.post('/user/delete/:id', function(req, res){
+	app.post('/user/delete/:id', isAuthenticated, function(req, res){
 		// console.log("/user/delete/" + req.params.id);
 		var query = connection.query(
 		"DELETE FROM users WHERE id = ?",

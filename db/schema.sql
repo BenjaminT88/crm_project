@@ -65,6 +65,7 @@ CREATE TABLE notes (
 
 CREATE TABLE account_stages(
   id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
   tim TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   amount INT NOT NULL,
   stage_id INT NOT NULL,
@@ -86,4 +87,13 @@ CREATE TABLE account_notes (
   FOREIGN KEY (note_id) REFERENCES notes(id),
   account_id INT NOT NULL,
   FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+CREATE TABLE todos (
+  id INT NOT NULL AUTO_INCREMENT,
+  todo VARCHAR(255) NOT NULL,
+  due TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  account_stage_id INT NOT NULL,
+  FOREIGN KEY (account_stage_id) REFERENCES account_stages(id),
+  PRIMARY KEY (id)
 );
