@@ -1,12 +1,13 @@
 Build todos routes
-Add deal names DONE
-change role_id in user page to roles.role DONE
 look into sendgrid
-added isAuthenticated checker to every page
-used method override - changed routes and forms of all edits and deletes - DO NOT CHANGE ANYTHING
-deleted cancel button on edit user page and edit accounts page because its action is still POST UPDATE.
-not sure what's the purpose of route /userjson
-create deal from accounts page - will add create deal from deals page
+create deal from accounts page - will add create deal from deals page DONE
+changed routes so that note edit button targets specific note
+added create notes from deal page as well as notes page
+disabled email link to sale rep
+
+add create deal from deals page DONE
+change accounts page so that it only shows accounts with the current user id
+update accounts page to show rep name
 
 Sherry
 change edit to 3 dots
