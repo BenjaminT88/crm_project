@@ -240,22 +240,30 @@ app.get('/', function(req, res) {
 		});
 	});
 
+// ===================
+// create new deal from deals page -- TO BE COMPLETED
+// ===================	
+	app.get('/create_deal_blank', isAuthenticated, function(req, res){
+		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id],function (error, results, fields) {
+			var newDealTempOb = results;
+			connection.query('SELECT * FROM stages', function (err, resp, fie) {
+				res.render('pages/create_deal_blank', {
+					data: resp,
+					dat: newDealTempOb
+				});
+			});
+		});
+	});
+
+// ===================
+// submit create new deal form
+// ===================		
 	app.post('/create_deal', function(req, res){
 		connection.query("INSERT INTO account_stages SET name = ?, amount = ?, account_id = ?, stage_id = ?", [req.body.name, req.body.amount, req.body.account_id, req.body.stage_id], function(error, results, fields) {
 			res.redirect('/deals');
 		  }
 		);
-	})
-
-// ===================
-// create new deal from deals page -- TO BE COMPLETED
-// ===================	
-	// app.post('/create_deal', function(req, res){
-	// 	connection.query("INSERT INTO account_stages SET ?", req.body, function(err, response) {
-	// 		res.redirect('/deals');
-	// 	  }
-	// 	);
-	// })
+	});
 
 // ===================
 // notes initialization page - choose the company of which the notes you would like to see
@@ -272,30 +280,104 @@ app.get('/', function(req, res) {
 // retrieve notes from selected company
 // ===================
 	app.post('/initnotes', function(req, res) {
-		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
-			var what_user_sees = "";
-			if (error){
-				what_user_sees = 'Something went wrong - please go back to homepage';
-				res.send(what_user_sees);
-			}else{
-				res.render('pages/notes', {
-					dat: results
-				});
-			}
+		connection.query('select * from account_stages where account_id = ?', [req.body.id], function(err, result){
+			var dataTemp = result[0];
+			connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
+				var what_user_sees = "";
+				if (error){
+					what_user_sees = 'Something went wrong - please go back';
+					res.send(what_user_sees);
+				}else{
+					res.render('pages/notes', {
+						datTemp: dataTemp,
+						dat: results
+					});
+				}
+			});
 		});
 	});
 
+// ===================
+// retrieve notes from deals page
+// ===================
 	app.post('/initnotes/:account_id', function(req, res) {
-		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.params.account_id],function (error, results, fields) {
-			var what_user_sees = "";
-			if (error){
-				what_user_sees = 'Something went wrong - please go back to homepage';
-				res.send(what_user_sees);
-			}else{
-				res.render('pages/notes', {
-					dat: results
+		connection.query('select * from account_stages where account_id = ?', [req.params.account_id], function(err, result){
+			var dataTemp = result[0];
+			connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.params.account_id],function (error, results, fields) {
+				var what_user_sees = "";
+				if (error){
+					what_user_sees = 'Something went wrong - please go back';
+					res.send(what_user_sees);
+				}else{
+					res.render('pages/notes', {
+						datTemp: dataTemp,
+						dat: results
+					});
+				}
+			});
+		});
+	});
+
+// ===================	
+//	edit notes page
+// ===================
+	app.get('/edit_note/:account_id/:note_id', isAuthenticated, function(req, res) {
+		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ? AND note_id = ?', [req.params.account_id, req.params.note_id], function(err, results){
+			res.render('pages/edit_note', {
+				data: results[0]
+			});
+		});
+	});
+
+// ===================
+// update note
+// ===================
+	app.put('/update_note/:id', function(req, res){
+		connection.query("UPDATE notes SET note = ? WHERE id = ?",[req.body.note, req.body.note_id],function(err, response) {
+			if (err) throw err;
+			connection.query("UPDATE account_stages SET name = ?, amount = ? WHERE id = ?",[req.body.name, req.body.amount, req.body.account_stage_id],function(error, resp) {
+				if (error) throw error;
+				res.redirect('/initnotes');
+			});
+		});
+	});
+
+// ===================
+// delete note - only manager can do this
+// ===================
+	app.delete('/delete_note/:id', function(req, res){	
+		connection.query("DELETE FROM account_stage_notes WHERE note_id = ?",[req.body.note_id],function(err, response) {
+			if (err) throw err;
+			connection.query("DELETE FROM notes WHERE id = ?",[req.body.note_id],function(err, response) {
+				if (err) throw err;
+				res.redirect('/initnotes');
+			});
+		});
+	});
+
+// ===================
+// create new note for an existing deal - from /initnotes/:account_id
+// ===================
+	app.get('/create_note/:account_id', isAuthenticated, function(req, res) {
+		connection.query("select * from notes order by id desc",function(error, response) {
+			var newNoteID = response[0].id + 1;
+			connection.query('select account_stages.id, account_stages.name, account_stages.amount, account_stages.account_id, accounts.company from account_stages left join accounts on account_stages.account_id = accounts.id WHERE account_id = ?', [req.params.account_id], function(err, results){
+				res.render('pages/create_note', {
+					data: results[0],
+					newID: newNoteID
 				});
-			}
+			});
+		});
+
+	});
+
+	app.post('/create_note/:id', function(req, res){
+		connection.query("INSERT INTO notes SET note = ?, user_id = ?",[req.body.note, req.session.user_id],function(err, response) {
+			if (err) throw err;
+			connection.query("INSERT INTO account_stage_notes SET account_stage_id = ?, note_id = ?",[req.body.account_stage_id, req.body.note_id],function(error, resp) {
+				if (error) throw error;
+				res.redirect('/initnotes');
+			});
 		});
 	});
 
@@ -356,7 +438,7 @@ app.get('/', function(req, res) {
 			res.redirect('/main');
 		  }
 		);
-	})
+	});
 
 // ===================
 // create new user page
@@ -406,7 +488,7 @@ app.get('/', function(req, res) {
 			res.redirect('/accounts');
 		  }
 		);
-	})
+	});
 
 // ===================	
 // users table

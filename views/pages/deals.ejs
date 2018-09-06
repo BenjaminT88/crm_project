@@ -28,7 +28,7 @@
 				<thead>
 					<tr>
 						<th scope="col">
-							<form method="GET" action="/createaccount">
+							<form method="GET" action="/create_deal_blank">
 								<button class="btn btn-outline-success btn-sm">
 									<i class="fas fa-plus"></i> 
 									Create New Deal</button>
@@ -58,13 +58,11 @@
 							<td><%= data.stage %></td>
 							<td><%= data.contact_first_name %> <%= data.contact_last_name %></td>
 							<td><%= data.tim %></td>
-							<% if(session.role_id == 2) { %>
-								<td>
-									<form method="POST" action="/initnotes/<%=data.account_id %>">
-										<button class="btn btn-outline-warning btn-sm">Notes</button>
-									</form>
-								</td>
-							<% } %>
+							<td>
+								<form method="POST" action="/initnotes/<%=data.account_id %>">
+									<button class="btn btn-outline-warning btn-sm">Notes</button>
+								</form>
+							</td>
 						</tr>
 					<% }); %>
 				</tbody>
@@ -88,21 +86,63 @@
 				</div>
 				<div class="col-sm">
 					<h4>Opportunity</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Opportunity") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>					
 				</div>
 				<div class="col-sm">
 					<h4>Proposal Out</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Proposal Out") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>	
 				</div>
 				<div class="col-sm">
 					<h4>Signature In</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Signature In") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>	
 				</div>
 				<div class="col-sm">
 					<h4>Docs Out</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Docs Out") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>						
 				</div>
 				<div class="col-sm">
 					<h4>Docs In</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Docs In") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>	
 				</div>
 				<div class="col-sm">
 					<h4>Funded</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Funded") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>	
 				</div>
 			
 		</div>
