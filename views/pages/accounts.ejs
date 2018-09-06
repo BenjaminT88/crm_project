@@ -3,16 +3,8 @@
 <head>
 	<% include ../partials/head %>
 
-	<style>
-		.main-content{
-			padding-top: 110px;
-		}
-		#fix-thead{
-			padding-top: 200px;
-			/* position: fixed; */
-			top: 150px;
-		}
-	</style>
+	<% include ../partials/style %>
+
 </head>
 
 <body>
@@ -53,16 +45,19 @@
 							<td><%= data[i].address%>, <%= data[i].city%>, <%= data[i].state%> <%= data[i].zip%></td>
 							<td><%= data[i].cell%></td>
 							<td><%= data[i].annual_revenue%></td>
-							<td>
-								<form method="GET" action="create_deal/<%=data[i].id %>">
-									<button class="btn btn-outline-warning btn-sm">New Deal</button>
-								</form>
-							</td>
+
 							<% if(session.role_id == 2) { %>
 								<td>
-									<form method="GET" action="edit_account/<%=data[i].id %>">
-										<button class="btn btn-outline-warning btn-sm">EDIT</button>
-									</form>
+									<div class="btn-group navbar">
+										<button type="button" class="btn btn-outline-warning btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-ellipsis-h" aria-hidden="true"></i> 
+										</button>
+										<div class="dropdown-menu dropdown-menu-right">
+											<a class="dropdown-item" href="create_deal/<%=data[i].id %>">New Deal</a>
+										
+											<a class="dropdown-item" href="edit_account/<%=data[i].id %>">Edit</a>
+										</div>
+									</div>
 								</td>
 							<% } %>
 						</tr>
