@@ -419,22 +419,6 @@ app.get('/', function(req, res) {
 		});
 	});
 
-
-	app.get('/usersjson', isAuthenticated, function(req, res) {
-		connection.query('SELECT id, first_name, last_name, email, role_id FROM users', function(err, results){
-			res.json(results)
-		});
-	});
-
-	//this is for later we can get access to the user from the edit page
-	app.get('/usersjson/:id', isAuthenticated, function(req, res){
-		connection.query('SELECT id, first_name, last_name, email, role_id FROM users WHERE id = ?', [req.params.id], function (error, results, fields) {
-		if (error) throw error;
-		
-		res.json(results[0]);
-		});
-	});
-
 // ===================	
 // edit users page
 // ===================

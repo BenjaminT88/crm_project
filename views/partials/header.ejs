@@ -1,10 +1,11 @@
 <style>
 	#welcomebar {
-		padding-top: 65px; 
+		padding-top: 75px; 
+		/* padding-top: 5%;  */
 		padding-left: 15px;
 		color: white; 
 		font-size: 24px;
-		height: 110px;
+		height: 120px;
 		z-index: 1029;
 	}
 	#showdate {
@@ -54,9 +55,8 @@
 		</ul>
 		<form class="form-inline my-2 my-lg-0" style="color: white">
 			<div class="btn-group">
-				<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fas fa-user-alt"></i>
-						 Logged in as 
+				<button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user-alt"></i> 
 					<% if(locals.session) { %>
 						<span class="align-baseline"><%= session.first_name %> <%= session.last_name %></span>
 					<% } %>
@@ -79,13 +79,6 @@
 		<span id="showdate"></span>
 </div>
 					
-
-
-<!-- jQuery, javascript file for the Bootstrap's javascript file to function -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Bootstrap's javascript file that allows the dropdown menu to work  -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script>
 	// Array of day names
