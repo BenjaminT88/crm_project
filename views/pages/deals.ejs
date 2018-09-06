@@ -4,6 +4,18 @@
 	<% include ../partials/head %>
 
 	<% include ../partials/style %>
+
+	<style>
+		.deal-container{
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		h4{
+			background-color: darkgrey;
+			text-align: center;
+		}
+
+	</style>
 </head>
 
 <body>
@@ -13,6 +25,17 @@
 
 	<div class="main-content table-responsive table-sm">
 			<table class="table table-striped table-dark table-hover ">
+				<thead>
+					<tr>
+						<th scope="col">
+							<form method="GET" action="/createaccount">
+								<button class="btn btn-outline-success btn-sm">
+									<i class="fas fa-plus"></i> 
+									Create New Deal</button>
+							</form>
+						</th>
+					</tr>
+				</thead>
 				<thead>
 					<tr>
 						<th scope="col">Deal</th>
@@ -47,6 +70,44 @@
 				</tbody>
 			</table>
 		</div>
+
+		==========================================================================================
+
+	<div class="deal-container">
+		<div class="row">
+			
+				<div class="col-sm">
+					<h4>Lead</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Lead") { %>
+							<h6><%= data.name %></h6>
+							<p><%= data.company %></p>
+							<p>$ <%= data.amount %></p>
+						<% } %>
+					<% }); %>
+				</div>
+				<div class="col-sm">
+					<h4>Opportunity</h4>
+				</div>
+				<div class="col-sm">
+					<h4>Proposal Out</h4>
+				</div>
+				<div class="col-sm">
+					<h4>Signature In</h4>
+				</div>
+				<div class="col-sm">
+					<h4>Docs Out</h4>
+				</div>
+				<div class="col-sm">
+					<h4>Docs In</h4>
+				</div>
+				<div class="col-sm">
+					<h4>Funded</h4>
+				</div>
+			
+		</div>
+	</div>
+
 
 	<footer>
 		<% include ../partials/footer %>
