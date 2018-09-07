@@ -5,17 +5,6 @@
 
 	<% include ../partials/style %>
 
-	<style>
-		.deal-container{
-			margin-left: 20px;
-			margin-right: 20px;
-		}
-		h4{
-			background-color: darkgrey;
-			text-align: center;
-		}
-
-	</style>
 </head>
 
 <body>
@@ -71,86 +60,81 @@
 
 		==========================================================================================
 
+
 	<div class="deal-container">
 		<div class="row">
-			
-				<div class="col-sm">
-					<h4>Lead</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Lead") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>
+				<div class="col-sm btnLead">
+					<h4 class="stage-title">Lead</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Lead") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Opportunity</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Opportunity") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>					
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnOpportunity">
+					<h4 class="stage-title">Opportunity</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Opportunity") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Proposal Out</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Proposal Out") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>	
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnProposalOut">
+					<h4 class="stage-title">Proposal Out</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Proposal Out") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Signature In</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Signature In") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>	
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnSignatureIn">
+					<h4 class="stage-title">Signature In</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Signature In") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Docs Out</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Docs Out") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>						
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnDocsOut">
+					<h4 class="stage-title">Docs Out</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Docs Out") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Docs In</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Docs In") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>	
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnDocsIn">
+					<h4 class="stage-title">Docs In</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Docs In") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-				<div class="col-sm">
-					<h4>Funded</h4>
-					<% data.forEach(function(data) { %>
-						<% if(data.stage == "Funded") { %>
-							<h6><%= data.name %></h6>
-							<p><%= data.company %></p>
-							<p>$ <%= data.amount %></p>
-						<% } %>
-					<% }); %>	
+				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+				<div class="col-sm btnFunded">
+					<h4 class="stage-title">Funded</h4>
+						<% data.forEach(function(data) { %>
+							<% if(data.stage == "Funded") { %>
+								<% include ../partials/deal_display_buttons %>
+							<% } %>
+						<% }); %>
 				</div>
-			
-		</div>
+
 	</div>
 
 
 	<footer>
 		<% include ../partials/footer %>
 	</footer>
+
+	<script>
+
+	</script>
 </body>
 </html>
