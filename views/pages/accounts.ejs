@@ -43,7 +43,7 @@
 						<tr>
 							<th scope="row"><%= data[i].company%></th>
 							<td><%= data[i].first_name %> <%= data[i].last_name %></td>
-							<td><% if(session.role_id == 2) { %><a href="mailto:<%= data[i].email %>"  target="_top"><% } %><%= data[i].email %></a></td>
+							<td><a href="mailto:<%= data[i].email %>"  target="_top"><%= data[i].email %></a></td>
 							<td><%= data[i].address%>, <%= data[i].city%>, <%= data[i].state%> <%= data[i].zip%></td>
 							<td><%= data[i].cell%></td>
 							<td><%= data[i].annual_revenue%></td>
@@ -62,6 +62,15 @@
 									</div>
 								</td>
 							<% } %>
+
+							<% if(session.role_id == 1) { %>
+								<td>
+									<form method="GET" action="create_deal/<%=data[i].id %>">
+										<button class="btn btn-outline-warning btn-sm">New Deal</button>
+									</form>
+								</td>
+							<% } %>
+
 						</tr>
 					<% } %>
 				</tbody>
