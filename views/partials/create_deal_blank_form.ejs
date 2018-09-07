@@ -1,0 +1,38 @@
+<div class="container">
+		<div class="signUp-form">
+			<div class="main-div">
+				<div class="panel">
+			   		<h2>Create New Account</h2>
+			   		<p>* fields are required</p>
+				</div>
+				
+				<form id="newaccount" method="POST" action="/create_deal">
+					<div class="row form-group">
+						<label for="createdealstage">Select Stage</label>
+						<select class="form-control" name="stage_id" id = "createdealstage" required>
+								<% data.forEach(function(account) { %>
+										<option value="<%= account.id %>"><%= account.stage %></option>
+								<% }); %>
+						</select>
+					</div>
+					<div class="row form-group">
+						<label for="createdealstage">Select Company</label>
+						<select class="form-control" id = "createdealstage" name="account_id" required>
+								<% dat.forEach(function(accnt) { %>
+									<option value="<%= accnt.id %>"><%= accnt.company %></option>
+								<% }); %>							
+						</select>
+					</div>						
+					<div class="row form-group">
+						<input type="text" name="amount" class="form-control" placeholder="Deal Amount">
+					</div>
+					<div class="row form-group">
+						<input type="text" name="name" class="form-control" placeholder="Describe">
+					</div>					
+
+					<button type="submit" class="btn btn-primary">Create New Deal</button>
+				</form>
+
+			</div>
+		</div>
+	</div>

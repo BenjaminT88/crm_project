@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="signUp-form">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Edit Note</h2>
+                <p>All fields are required</p>
+            </div>
+            
+            <form id="update" method="POST" action="/update_note/<%= data.id %>?_method=PUT">
+                <div class="row form-group">
+                        <label class="label_editpage">Deal Name:</label>
+                        <input type="text" name="name" class="form-control" placeholder="Deal Name" value="<%= data.name %>" required autofocus>
+                </div>                
+                <div class="row form-group">
+                    <div class="col-xs-6 col-md-6">
+                        <label class="label_editpage">Amount:</label>
+                        <input type="text" id="amount" name="amount" class="form-control" placeholder="Deal Amount"  value="<%= data.amount %>" required>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <label class="label_editpage">Company:</label>
+                        <input type="text" id="company" name="company" class="form-control" placeholder="Company"  value="<%= data.company %>" required disabled>
+                    </div>
+                </div>
+                <div class="row form-group">
+                        <label class="label_editpage">Note:</label>
+                        <input type="text" id="note" name="note" class="form-control" placeholder="Note" value="<%= data.note %>" required>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-3 col-md-9">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <button type="submit" class="btn btn-outline-warning btn-sm">Update</button>
+                    </div>
+                </div>
+                <input type="text" id="note_id" name="note_id" class="form-control" placeholder="note_id" value="<%= data.note_id %>" hidden>
+                <input type="text" name="account_stage_id" class="form-control" placeholder="account_stage_id" value="<%= data.account_stage_id %>" hidden>
+            </form>	
+            <form id="delete" method="POST" action="/delete_note/<%= data.id %>?_method=DELETE">
+                <button class="delete" type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
