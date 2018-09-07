@@ -71,7 +71,7 @@
 			<div class="modal-footer">
 				<% if(session.role_id == 2) { %>
 					<td>
-						<form method="POST" action="/initnotes/<%=data.account_id %>">
+						<form method="GET" action="/initnotes/<%=data.account_id %>">
 							<button class="btn btn-warning">Notes</button>
 						</form>
 					</td>
