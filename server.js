@@ -217,7 +217,7 @@ app.get('/', function(req, res) {
 // show all deals
 // ===================
 	app.get('/deals', isAuthenticated, function(req, res) {
-		connection.query('select account_stages.name, account_stages.account_id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage from account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id left join accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id where accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT account_stages.name, account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage FROM account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
 			if (err) throw err;
 			res.render('pages/deals', {
 				data: results
@@ -241,7 +241,7 @@ app.get('/', function(req, res) {
 	});
 
 // ===================
-// create new deal from deals page -- TO BE COMPLETED
+// create new deal from deals page
 // ===================	
 	app.get('/create_deal_blank', isAuthenticated, function(req, res){
 		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id],function (error, results, fields) {
@@ -266,10 +266,35 @@ app.get('/', function(req, res) {
 	});
 
 // ===================
+// Edit new deal from deals page
+// ===================
+	app.get('/edit_deal/:account_id', isAuthenticated, function(req, res){
+		connection.query('SELECT * FROM accounts LEFT JOIN account_stages on account_stages.account_id = accounts.id WHERE accounts.id = ?', [req.params.account_id],function (error, results, fields) {
+			var newDealTempOb = results[0];
+			connection.query('SELECT * FROM stages', function (err, resp, fie) {
+				res.render('pages/edit_deal', {
+					data: resp,
+					dat: newDealTempOb
+				});
+			});
+		});
+	});
+
+// ===================
+// update deal
+// ===================
+	app.put('/update_deal/:id', function(req, res){
+		connection.query("UPDATE account_stages SET stage_id = ?, amount = ?, name = ? WHERE account_id = ?",[req.body.stage_id, req.body.amount, req.body.name, req.body.account_id],function(err, response) {
+			if (err) throw err;
+			res.redirect('/deals');
+		});
+	});
+
+// ===================
 // notes initialization page - choose the company of which the notes you would like to see
 // ===================
 	app.get('/initnotes', isAuthenticated, function(req, res) {
-		connection.query('select * from account_stages left join accounts on account_stages.account_id = accounts.id where accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT * FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/initialize_notes', {
 				dat: results
 			});
@@ -280,9 +305,9 @@ app.get('/', function(req, res) {
 // retrieve notes from selected company
 // ===================
 	app.post('/initnotes', function(req, res) {
-		connection.query('select * from account_stages where account_id = ?', [req.body.id], function(err, result){
+		connection.query('SELECT * FROM account_stages WHERE account_id = ?', [req.body.id], function(err, result){
 			var dataTemp = result[0];
-			connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
+			connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
 				var what_user_sees = "";
 				if (error){
 					what_user_sees = 'Something went wrong - please go back';
@@ -300,10 +325,10 @@ app.get('/', function(req, res) {
 // ===================
 // retrieve notes from deals page
 // ===================
-	app.post('/initnotes/:account_id', function(req, res) {
-		connection.query('select * from account_stages where account_id = ?', [req.params.account_id], function(err, result){
+	app.get('/initnotes/:account_id', function(req, res) {
+		connection.query('SELECT * FROM account_stages WHERE account_id = ?', [req.params.account_id], function(err, result){
 			var dataTemp = result[0];
-			connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ?', [req.params.account_id],function (error, results, fields) {
+			connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.account_id = ?', [req.params.account_id],function (error, results, fields) {
 				var what_user_sees = "";
 				if (error){
 					what_user_sees = 'Something went wrong - please go back';
@@ -322,7 +347,7 @@ app.get('/', function(req, res) {
 //	edit notes page
 // ===================
 	app.get('/edit_note/:account_id/:note_id', isAuthenticated, function(req, res) {
-		connection.query('select * from notes left join account_stage_notes on notes.id = account_stage_notes.note_id left join account_stages on account_stage_notes.account_stage_id = account_stages.id left join accounts on account_stages.account_id = accounts.id left join stages on account_stages.stage_id = stages.id where account_stages.account_id = ? AND note_id = ?', [req.params.account_id, req.params.note_id], function(err, results){
+		connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.account_id = ? AND note_id = ?', [req.params.account_id, req.params.note_id], function(err, results){
 			res.render('pages/edit_note', {
 				data: results[0]
 			});
@@ -359,9 +384,9 @@ app.get('/', function(req, res) {
 // create new note for an existing deal - from /initnotes/:account_id
 // ===================
 	app.get('/create_note/:account_id', isAuthenticated, function(req, res) {
-		connection.query("select * from notes order by id desc",function(error, response) {
+		connection.query("SELECT * FROM notes order by id desc",function(error, response) {
 			var newNoteID = response[0].id + 1;
-			connection.query('select account_stages.id, account_stages.name, account_stages.amount, account_stages.account_id, accounts.company from account_stages left join accounts on account_stages.account_id = accounts.id WHERE account_id = ?', [req.params.account_id], function(err, results){
+			connection.query('SELECT account_stages.id, account_stages.name, account_stages.amount, account_stages.account_id, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE account_id = ?', [req.params.account_id], function(err, results){
 				res.render('pages/create_note', {
 					data: results[0],
 					newID: newNoteID
@@ -381,6 +406,152 @@ app.get('/', function(req, res) {
 		});
 	});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===================
+// show all todos in the future
+// ===================
+	app.get('/todos', isAuthenticated, function(req, res) {
+		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id where due > current_timestamp and accounts.user_id = ?', [req.session.user_id], function(err, results){
+			if (err) throw err;
+			res.render('pages/todos', {
+				data: results
+			});
+		});
+	});	
+
+// ===================
+// show all past due todos
+// ===================
+	app.get('/overdue', isAuthenticated, function(req, res) {
+		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id where due < current_timestamp and accounts.user_id = ?', [req.session.user_id], function(err, results){
+			if (err) throw err;
+			res.render('pages/overdue', {
+				data: results
+			});
+		});
+	});	
+
+// ===================
+// edit todo from todo page
+// ===================
+	app.get('/edit_todo/:todo_id', isAuthenticated, function(req, res){
+		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id WHERE todos.id = ?', [req.params.todo_id],function (error, results, fields) {
+			res.render('pages/edit_todo', {
+				data: results[0],
+			});
+		});
+	});
+
+// ===================
+// update todo
+// ===================
+	app.put('/update_todo/:account_id', function(req, res){
+		connection.query("UPDATE todos SET todo = ?, due = ?WHERE id = ?",[req.body.todo, req.body.due, req.params.todo_id],function(err, response) {
+			if (err) throw err;
+			res.redirect('/todos');
+		});
+	});
+
+// ===================
+// delete todo
+// ===================
+	app.delete('/delete_todo/:todo_id', function(req, res){	
+		connection.query("DELETE FROM todos WHERE id = ?",[req.params.todo_id],function(err, response) {
+			if (err) throw err;
+			res.redirect('/todos');
+		});
+	});
+
+// ===================
+// create new todo from deals page
+// ===================	
+	app.get('/create_todo/:account_stage_id', isAuthenticated, function(req, res){
+		connection.query('SELECT account_stages.id AS account_stage_id, name, amount, company  FROM account_stages LEFT JOIN accounts ON account_stages.account_id = accounts.id WHERE account_stages.id = ?', [req.params.account_stage_id],function (error, results, fields) {
+			res.render('pages/create_todo', {
+				data: results[0]
+			});
+		});
+	});
+
+// ===================
+// submit create new deal form
+// ===================		
+	app.post('/create_todo/:account_stage_id', function(req, res){
+		connection.query("INSERT INTO todos SET todo = ?, due = ?, account_stage_id = ?", [req.body.todo, req.body.due, req.params.account_stage_id], function(error, results, fields) {
+			res.redirect('/todos');
+		}
+		);
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ========================================================================================
 // ========================================================================================
 			//SEPARATION LINE
@@ -391,7 +562,7 @@ app.get('/', function(req, res) {
 // main page
 // ===================
 	app.get('/main', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts where user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/main', {
 				data: results
 			});
@@ -402,7 +573,7 @@ app.get('/', function(req, res) {
 // main page -test the calendar
 // ===================
 	app.get('/calendar', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts where user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id], function(err, results){
 			res.sendFile(path.join(__dirname, "public/calendar.html"));
 		});
 	});	
@@ -416,10 +587,21 @@ app.get('/', function(req, res) {
 
 
 // ===================
-// accounts page
+// accounts page - for managers
 // ===================
 	app.get('/accounts', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts where user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT * FROM accounts', function(err, results){
+			res.render('pages/accounts', {
+				data: results
+			});
+		});
+	});
+
+// ===================
+// accounts page - for sales reps
+// ===================
+	app.get('/accounts_rep', isAuthenticated, function(req, res) {
+		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/accounts', {
 				data: results
 			});
@@ -455,7 +637,7 @@ app.get('/', function(req, res) {
 //	edit account page - only manager can do this
 // ===================
 	app.get('/edit_account/:id', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts where id = ?', [req.params.id], function(err, results){
+		connection.query('SELECT * FROM accounts WHERE id = ?', [req.params.id], function(err, results){
 			res.render('pages/edit_account', {
 				data: results[0]
 			});
@@ -505,7 +687,7 @@ app.get('/', function(req, res) {
 // edit users page
 // ===================
 	app.get('/edit_user/:id', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM users where id = ?', [req.params.id], function(err, results){
+		connection.query('SELECT * FROM users WHERE id = ?', [req.params.id], function(err, results){
 			res.render('pages/edit_user', {
 				data: results[0]
 			});
@@ -539,4 +721,3 @@ app.get('/', function(req, res) {
 app.listen(3000, function(){
 	console.log('listening on 3000');
 });
-

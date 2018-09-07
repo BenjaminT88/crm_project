@@ -1,0 +1,40 @@
+<div class="container">
+		<div class="signUp-form">
+			<div class="main-div">
+				<div class="panel">
+			   		<h2>Edit To-Do</h2>
+			   		<p>All fields are required</p>
+				</div>
+				
+				<form method="POST" action="/update_todo/<%= data.id %>?_method=PUT">
+					<div class="row form-group">
+							<label class="label_editpage">Deal Name:</label>
+							<input type="text" name="name" class="form-control" placeholder="Deal Name" value="<%= data.name %>" required disabled>
+					</div>                
+					<div class="row form-group">
+						<div class="col-xs-6 col-md-6">
+							<label class="label_editpage">Amount:</label>
+							<input type="text" id="amount" name="amount" class="form-control" placeholder="Deal Amount"  value="<%= data.amount %>" required disabled>
+						</div>
+						<div class="col-xs-6 col-md-6">
+							<label class="label_editpage">Company:</label>
+							<input type="text" id="company" name="company" class="form-control" placeholder="Company"  value="<%= data.company %>" required disabled>
+						</div>
+					</div>						
+					<div class="row form-group">
+						<label class="label_editpage">To-Do:</label>
+						<input type="text" name="todo" class="form-control" placeholder="To-Do" value="<%= data.todo %>" required>
+					</div>				
+					<div class="row form-group">
+						<label class="label_editpage">Due Date:</label>
+						<input type="text" name="due" class="form-control" placeholder="Due Date" value="<%= data.due %>" required>
+						<small class="form-text text-muted">Format: "YYYY-MM-DD HH:MM:SS"</small>
+					</div>	
+					<button type="submit" class="btn btn-primary">Submit Changes</button>
+				</form>
+				<form id="delete" method="POST" action="/delete_todo/<%= data.id %>?_method=DELETE">
+					<button class="delete" type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+				</form>
+			</div>
+		</div>
+	</div>

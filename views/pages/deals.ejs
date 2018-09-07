@@ -59,18 +59,22 @@
 							<td><%= data.contact_first_name %> <%= data.contact_last_name %></td>
 							<td><%= data.tim %></td>
 							<td>
-								<form method="POST" action="/initnotes/<%=data.account_id %>">
-									<button class="btn btn-outline-warning btn-sm">Notes</button>
-								</form>
+								<div class="btn-group navbar">
+									<button type="button" class="btn btn-outline-warning btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-ellipsis-h" aria-hidden="true"></i> 
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="initnotes/<%=data.account_id %>">Notes</a>
+										<a class="dropdown-item" href="create_todo/<%=data.id %>">New To-Do</a>
+										<a class="dropdown-item" href="edit_deal/<%=data.account_id %>">Edit</a>
+									</div>
+								</div>
 							</td>
 						</tr>
 					<% }); %>
 				</tbody>
 			</table>
 		</div>
-
-		==========================================================================================
-
 	<div class="deal-container">
 		<div class="row">
 			
