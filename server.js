@@ -305,7 +305,7 @@ app.get('/', function(req, res) {
 // notes initialization page - choose the company of which the notes you would like to see
 // ===================
 	app.get('/initnotes', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT account_stages.id as id, account_stages.name, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/initialize_notes', {
 				dat: results
 			});
@@ -316,21 +316,19 @@ app.get('/', function(req, res) {
 // retrieve notes from selected company
 // ===================
 	app.post('/initnotes', function(req, res) {
-		connection.query('SELECT * FROM account_stages WHERE account_id = ?', [req.body.id], function(err, result){
-			var dataTemp = result[0];
-			connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.account_id = ?', [req.body.id],function (error, results, fields) {
+
+			connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.id = ?', [req.body.id],function (error, results, fields) {
 				var what_user_sees = "";
 				if (error){
 					what_user_sees = 'Something went wrong - please go back';
 					res.send(what_user_sees);
 				}else{
 					res.render('pages/notes', {
-						datTemp: dataTemp,
 						dat: results
 					});
 				}
 			});
-		});
+
 	});
 
 // ===================
@@ -395,24 +393,23 @@ app.get('/', function(req, res) {
 // create new note for an existing deal - from /initnotes/:account_id
 // ===================
 	app.get('/create_note/:account_id', isAuthenticated, function(req, res) {
-		connection.query("SELECT * FROM notes order by id desc",function(error, response) {
-			var newNoteID = response[0].id + 1;
-			connection.query('SELECT account_stages.id, account_stages.name, account_stages.amount, account_stages.account_id, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE account_id = ?', [req.params.account_id], function(err, results){
-				res.render('pages/create_note', {
-					data: results[0],
-					newID: newNoteID
-				});
+		connection.query('SELECT account_stages.id, account_stages.name, account_stages.amount, account_stages.account_id, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE account_id = ?', [req.params.account_id], function(err, results){
+			res.render('pages/create_note', {
+				data: results[0],
 			});
 		});
-
 	});
 
 	app.post('/create_note/:id', function(req, res){
-		connection.query("INSERT INTO notes SET note = ?, user_id = ?",[req.body.note, req.session.user_id],function(err, response) {
+		connection.query("INSERT INTO notes SET note = ?, user_id = ?",[req.body.note, req.session.user_id],function(err, respo) {
 			if (err) throw err;
-			connection.query("INSERT INTO account_stage_notes SET account_stage_id = ?, note_id = ?",[req.body.account_stage_id, req.body.note_id],function(error, resp) {
-				if (error) throw error;
-				res.redirect('/initnotes');
+			connection.query("select max(id) as max from notes", function(erro, resp){
+				if (erro) console.log(erro);
+				var noteMaxId = resp[0].max;
+				connection.query("INSERT INTO account_stage_notes SET account_stage_id = ?, note_id = ?",[req.body.account_stage_id, noteMaxId],function(error, response) {
+					if (error) throw error;
+					res.redirect('/initnotes');
+				});
 			});
 		});
 	});
