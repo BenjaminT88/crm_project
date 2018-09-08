@@ -6,7 +6,6 @@
                 <p>All fields are required</p>
             </div>
             
-
             <form id="update" method="POST" action="/update_note/<%= data.note_id %>?_method=PUT">
                 <div class="row form-group">
 
@@ -45,14 +44,12 @@
                         </form>
                     </div>
                 </div>
-
                 <input type="text" id="note_id" name="note_id" class="form-control" placeholder="note_id" value="<%= data.note_id %>" hidden>
                 <input type="text" name="account_stage_id" class="form-control" placeholder="account_stage_id" value="<%= data.account_stage_id %>" hidden>
             </form>	
             <form id="delete" method="POST" action="/delete_note/<%= data.note_id %>?_method=DELETE">
                 <button class="delete" type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
             </form>
-
         </div>
     </div>
 </div>
