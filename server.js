@@ -63,7 +63,7 @@ app.get('/', function(req, res) {
 	if(req.session.user_id == undefined){
 		res.redirect('/login');
 	}else{
-		res.redirect('/main');
+		res.redirect('/todos');
 	}
 });
 
@@ -119,7 +119,7 @@ app.get('/', function(req, res) {
 					req.session.role_id = results[0].role_id;
 					req.session.first_name = results[0].first_name;
 					req.session.last_name = results[0].last_name;
-					res.redirect('/main');
+					res.redirect('/');
 					}else{
 					res.render('pages/login_err');
 					}
@@ -212,11 +212,21 @@ app.get('/', function(req, res) {
 // show all deals
 // ===================
 	app.get('/deals', isAuthenticated, function(req, res) {
-		connection.query('SELECT account_stages.name, account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage FROM account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id WHERE accounts.user_id = 2', function(err, results){
+		connection.query('SELECT account_stages.name, account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage FROM account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
 			if (err) throw err;
 			results = results.map(function(el){
 				var doo = new Date(el.tim);
-				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}`;
+				var monStr = doo.getMonth()+1;
+				var dateStr = doo.getDate();
+				var hourStr = doo.getHours();
+				var minStr = doo.getMinutes();
+				var secStr = doo.getSeconds();
+				if(monStr<10){monStr = "0"+monStr};
+				if(dateStr<10){dateStr = "0"+dateStr};
+				if(hourStr<10){hourStr = "0"+hourStr};
+				if(minStr<10){minStr = "0"+minStr};
+				if(secStr<10){secStr = "0"+secStr};
+				var dString = `${doo.getFullYear()}-${monStr}-${dateStr}`;
 				el['date'] = dString;
 				return el;
 			});
@@ -371,10 +381,10 @@ app.get('/', function(req, res) {
 // ===================
 // delete note - only manager can do this
 // ===================
-	app.delete('/delete_note/:id', function(req, res){	
-		connection.query("DELETE FROM account_stage_notes WHERE note_id = ?",[req.body.note_id],function(err, response) {
+	app.delete('/delete_note/:note_id', function(req, res){	
+		connection.query("DELETE FROM account_stage_notes WHERE note_id = ?",[req.params.note_id],function(err, response) {
 			if (err) throw err;
-			connection.query("DELETE FROM notes WHERE id = ?",[req.body.note_id],function(err, response) {
+			connection.query("DELETE FROM notes WHERE id = ?",[req.params.note_id],function(err, response) {
 				if (err) throw err;
 				res.redirect('/initnotes');
 			});
@@ -415,13 +425,17 @@ app.get('/', function(req, res) {
 			if (err) throw err;
 			results = results.map(function(el){
 				var doo = new Date(el.due);
+				var monStr = doo.getMonth()+1;
+				var dateStr = doo.getDate();
 				var hourStr = doo.getHours();
 				var minStr = doo.getMinutes();
 				var secStr = doo.getSeconds();
+				if(monStr<10){monStr = "0"+monStr};
+				if(dateStr<10){dateStr = "0"+dateStr};
 				if(hourStr<10){hourStr = "0"+hourStr};
 				if(minStr<10){minStr = "0"+minStr};
 				if(secStr<10){secStr = "0"+secStr};
-				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}  ${hourStr}:${minStr}:${secStr}`;
+				var dString = `${doo.getFullYear()}-${monStr}-${dateStr}  ${hourStr}:${minStr}:${secStr}`;
 				el['datetime'] = dString;
 				return el;
 			});
@@ -439,13 +453,17 @@ app.get('/', function(req, res) {
 			if (err) throw err;
 			results = results.map(function(el){
 				var doo = new Date(el.due);
+				var monStr = doo.getMonth()+1;
+				var dateStr = doo.getDate();
 				var hourStr = doo.getHours();
 				var minStr = doo.getMinutes();
 				var secStr = doo.getSeconds();
+				if(monStr<10){monStr = "0"+monStr};
+				if(dateStr<10){dateStr = "0"+dateStr};
 				if(hourStr<10){hourStr = "0"+hourStr};
 				if(minStr<10){minStr = "0"+minStr};
 				if(secStr<10){secStr = "0"+secStr};
-				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}  ${hourStr}:${minStr}:${secStr}`;
+				var dString = `${doo.getFullYear()}-${monStr}-${dateStr}  ${hourStr}:${minStr}:${secStr}`;
 				el['datetime'] = dString;
 				return el;
 			});
@@ -460,6 +478,22 @@ app.get('/', function(req, res) {
 // ===================
 	app.get('/edit_todo/:todo_id', isAuthenticated, function(req, res){
 		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id WHERE todos.id = ?', [req.params.todo_id],function (error, results, fields) {
+			results = results.map(function(el){
+				var doo = new Date(el.due);
+				var monStr = doo.getMonth()+1;
+				var dateStr = doo.getDate();
+				var hourStr = doo.getHours();
+				var minStr = doo.getMinutes();
+				var secStr = doo.getSeconds();
+				if(monStr<10){monStr = "0"+monStr};
+				if(dateStr<10){dateStr = "0"+dateStr};
+				if(hourStr<10){hourStr = "0"+hourStr};
+				if(minStr<10){minStr = "0"+minStr};
+				if(secStr<10){secStr = "0"+secStr};
+				var dString = `${doo.getFullYear()}-${monStr}-${dateStr}  ${hourStr}:${minStr}:${secStr}`;
+				el['datetime'] = dString;
+				return el;
+			});
 			res.render('pages/edit_todo', {
 				data: results[0],
 			});
@@ -469,7 +503,7 @@ app.get('/', function(req, res) {
 // ===================
 // update todo
 // ===================
-	app.put('/update_todo/:account_id', function(req, res){
+	app.put('/update_todo/:todo_id', function(req, res){
 		connection.query("UPDATE todos SET todo = ?, due = ?WHERE id = ?",[req.body.todo, req.body.due, req.params.todo_id],function(err, response) {
 			if (err) throw err;
 			res.redirect('/todos');
