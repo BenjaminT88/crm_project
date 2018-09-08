@@ -7,7 +7,26 @@
 
 </head>
 
-<% include ../partials/signup_form %>
+<body id="SignUpForm">
+	
+	<div class="container">
+		<div class="signUp-form">
+			<div class="main-div SignUpForm">
+				<div class="panel">
+			   		<h2>Sign Up</h2>
+			   		<p>All fields are required</p>
+				</div>
+
+				<% include ../partials/signup_form %>
+
+					<div id="backarrow">
+						<a href="/login"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:rgb(102, 102, 102)"></i></a>
+					</div>
+				<button type="submit" class="btn btn-success">Sign Up</button>
+			</form>
+
+		</div>
+	</div>
 
 	
 </body>
