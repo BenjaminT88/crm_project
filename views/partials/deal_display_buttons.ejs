@@ -69,13 +69,22 @@
 
 			</div>
 			<div class="modal-footer">
-				<% if(session.role_id == 2) { %>
-					<td>
-						<form method="GET" action="/initnotes/<%=data.account_id %>">
-							<button class="btn btn-warning">Notes</button>
-						</form>
-					</td>
-				<% } %>
+				<td>
+					<form method="GET" action="/initnotes/<%=data.account_id %>">
+						<button class="btn btn-info">Notes</button>
+					</form>
+				</td>
+				<td>
+					<form method="GET" action="create_todo/<%=data.id %>">
+						<button class="btn btn-success">New To-Do</button>
+					</form>
+				</td>
+				<td>
+					<form method="GET" action="edit_deal/<%=data.account_id %>">
+						<button class="btn btn-warning">Edit</button>
+					</form>
+				</td>
+				
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
 			</div>
