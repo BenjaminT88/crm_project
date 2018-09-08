@@ -73,88 +73,204 @@
 
 	<div class="deal-container">
 		<div class="row">
-				<div class="col-sm btnLead">
-					<h4 class="stage-title">Lead</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Lead") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnOpportunity">
-					<h4 class="stage-title">Opportunity</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Opportunity") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnProposalOut">
-					<h4 class="stage-title">Proposal Out</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Proposal Out") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnSignatureIn">
-					<h4 class="stage-title">Signature In</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Signature In") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnDocsOut">
-					<h4 class="stage-title">Docs Out</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Docs Out") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnDocsIn">
-					<h4 class="stage-title">Docs In</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Docs In") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
-				<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-				<div class="col-sm btnFunded">
-					<h4 class="stage-title">Funded</h4>
-						<% data.forEach(function(data) { %>
-							<% if(data.stage == "Funded") { %>
-								<% include ../partials/deal_display_buttons %>
-							<% } %>
-						<% }); %>
-				</div>
+			<div class="col-sm btnLead">
+				<h4 class="stage-title">Lead</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Lead") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnOpportunity">
+				<h4 class="stage-title">Opportunity</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Opportunity") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnProposalOut">
+				<h4 class="stage-title">Proposal Out</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Proposal Out") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnSignatureIn">
+				<h4 class="stage-title">Signature In</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Signature In") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnDocsOut">
+				<h4 class="stage-title">Docs Out</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Docs Out") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnDocsIn">
+				<h4 class="stage-title">Docs In</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Docs In") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+			<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+			<div class="col-sm btnFunded">
+				<h4 class="stage-title">Funded</h4>
+					<% data.forEach(function(data) { %>
+						<% if(data.stage == "Funded") { %>
+							<% include ../partials/deal_display_buttons %>
+						<% } %>
+					<% }); %>
+			</div>
+		</div>
 	</div>
 	==============================================
 
-	<div >
-			<ul class="nav nav-pills">
-			  <li class="active"><a data-toggle="pill" href="#tableView">Table View</a></li>
-			  <li><a data-toggle="pill" href="#stagesView">Stages View</a></li>
-			</ul>
-			
-			<div class="tab-content">
-			  <div id="tableView" class="tab-pane fade-in active">
-				<h3>Table View</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			  </div>
-			  <div id="stagesView" class="tab-pane fade">
-				<h3>Stages View</h3>
-				<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			  </div>
+
+
+<nav>
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#tableView" role="tab" aria-controls="nav-home" aria-selected="true">Table View</a>
+		<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#stagesView" role="tab" aria-controls="nav-profile" aria-selected="false">Stages View</a>
+	</div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+	<div class="tab-pane fade show active" id="tableView" role="tabpanel" aria-labelledby="nav-home-tab">
+		<div class="main-content table-responsive table-sm">
+			<table class="table table-striped table-dark table-hover ">
+				<thead>
+					<tr>
+						<th scope="col">
+							<form method="GET" action="/create_deal_blank">
+								<button class="btn btn-outline-success btn-sm">
+									<i class="fas fa-plus"></i> 
+									Create New Deal</button>
+							</form>
+						</th>
+					</tr>
+				</thead>
+				<thead>
+					<tr>
+						<th scope="col">Deal</th>
+						<th scope="col">Company</th>
+						<th scope="col">Amount</th>
+						<th scope="col">Rep</th>
+						<th scope="col">Stage</th>
+						<th scope="col">Contact Name</th>
+						<th scope="col">Date Created</th>
+					</tr>
+					
+				</thead>
+				<tbody>
+					<% data.forEach(function(data) { %>
+						<tr>
+							<th scope="row"><%= data.name %></th>
+							<td><%= data.company %></td>
+							<td><%= data.amount %></td>
+							<td><%= data.rep_first_name %> <%= data.rep_last_name %></td>
+							<td><%= data.stage %></td>
+							<td><%= data.contact_first_name %> <%= data.contact_last_name %></td>
+							<td><%= data.date %></td>
+							<td>
+								<div class="btn-group navbar">
+									<button type="button" class="btn btn-outline-warning btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-ellipsis-h" aria-hidden="true"></i> 
+									</button>
+									<div class="dropdown-menu dropdown-menu-right">
+										<a class="dropdown-item" href="initnotes/<%=data.account_id %>">Notes</a>
+										<a class="dropdown-item" href="create_todo/<%=data.id %>">New To-Do</a>
+										<a class="dropdown-item" href="edit_deal/<%=data.account_id %>">Edit</a>
+									</div>
+								</div>
+							</td>
+						</tr>
+					<% }); %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="stagesView" role="tabpanel" aria-labelledby="nav-profile-tab">
+			<div class="deal-container">
+				<div class="row">
+					<div class="col-sm btnLead">
+						<h4 class="stage-title">Lead</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Lead") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnOpportunity">
+						<h4 class="stage-title">Opportunity</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Opportunity") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnProposalOut">
+						<h4 class="stage-title">Proposal Out</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Proposal Out") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnSignatureIn">
+						<h4 class="stage-title">Signature In</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Signature In") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnDocsOut">
+						<h4 class="stage-title">Docs Out</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Docs Out") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnDocsIn">
+						<h4 class="stage-title">Docs In</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Docs In") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+					<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+					<div class="col-sm btnFunded">
+						<h4 class="stage-title">Funded</h4>
+							<% data.forEach(function(data) { %>
+								<% if(data.stage == "Funded") { %>
+									<% include ../partials/deal_display_buttons %>
+								<% } %>
+							<% }); %>
+					</div>
+				</div>
 			</div>
-		  </div>
+	</div>
+</div>	  
 
 <!-- Footer -->
 <% include ../partials/footer %>
