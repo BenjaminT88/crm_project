@@ -3,7 +3,7 @@
         <div class="main-div">
             <div class="panel">
                 <h2>Edit Account</h2>
-                <p>* fields are required</p>
+                <p>All fields are required</p>
             </div>
             
 
@@ -67,16 +67,21 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <div class="col-xs-3 col-md-9">
-                    </div>
                     <div class="col-xs-3 col-md-3">
-                        <button type="submit" class="btn btn-outline-warning btn-sm">Update</button>
+                        <button type="submit" class="btn btn-warning btn-sm">Update</button>
                     </div>
-                </div>
-            </form>	
-            <form id="delete" method="POST" action="/delete_account/<%= data.id %>?_method=DELETE">
-                <button class="delete" type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-            </form>
+                </form>
+                    <div class="col-xs-3 col-md-6">
+                        <form id="delete" method="POST" action="/delete_account/<%= data.id %>?_method=DELETE">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                     <div class="col-xs-3 col-md-3">
+                        <form method="GET" action="/accounts">
+                            <button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
+                        </form>
+                    </div>
+                </div> 
         </div>
     </div>
 </div>

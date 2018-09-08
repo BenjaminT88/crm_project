@@ -4,6 +4,12 @@
 	<% include ../partials/head %>
 
 	<% include ../partials/style %>
+	
+	<style>
+		#nav_initnotes{
+			color: white;
+		}
+	</style>
 </head>
 
 <body>
@@ -11,8 +17,14 @@
 	<header>
 		<% include ../partials/header %>
 	</header>
-</div>
-<div class="main-content table-responsive table-sm">
+	<div class="chooseCompany">
+		<div id="backarrow_notes">
+			<a href="/initnotes"><i class="far fa-arrow-alt-circle-left fa-2x" style="color:rgb(102, 102, 102)"></i></a>
+		</div>
+		<label id="seleCompTitle">Choose Another Company</label>
+	</div>
+
+<div class="main-content note_page_padding table-responsive table-sm">
 		<table class="table table-striped table-dark table-hover">
 			<thead>
 				<tr>

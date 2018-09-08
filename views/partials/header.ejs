@@ -25,17 +25,17 @@
 		<ul class="navbar-nav mr-auto">
 		<% if(session.role_id == 1) { %>
 			<li class="nav-item">
-				<a class="nav-link" href="/accounts_rep">Accounts</a>
+				<a id="nav_accounts_rep" class="nav-link" href="/accounts_rep">Accounts</a>
 			</li>
 		<% } %>
 		<li class="nav-item">
-			<a class="nav-link" href="/deals">Deals</a>
+			<a id="nav_deals" class="nav-link" href="/deals">Deals</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/initnotes">Notes</a>
+			<a id="nav_initnotes" class="nav-link" href="/initnotes">Notes</a>
 		</li>
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a id="nav_todo" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				To-Dos
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +45,7 @@
 		</li>
 		<% if(session.role_id == 2) { %>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a id="nav_manage" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Manage
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">

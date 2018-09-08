@@ -21,11 +21,6 @@ app.use(methodOverride('_method'));
 // set the view engine to ejs
 	app.set('view engine', 'ejs');
 
-// make public folder static	
-	var path = require("path");
-
-	app.use(express.static("public"));
-
 //session stuff
 	var cookieParser = require('cookie-parser');
 
