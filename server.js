@@ -305,7 +305,7 @@ app.get('/', function(req, res) {
 // notes initialization page - choose the company of which the notes you would like to see
 // ===================
 	app.get('/initnotes', isAuthenticated, function(req, res) {
-		connection.query('SELECT account_stages.id as id, account_stages.name, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT account_stages.id as id, account_stages.account_id, account_stages.name, accounts.company FROM account_stages LEFT JOIN accounts on account_stages.account_id = accounts.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
 			res.render('pages/initialize_notes', {
 				dat: results
 			});
@@ -316,13 +316,13 @@ app.get('/', function(req, res) {
 // retrieve notes from selected company
 // ===================
 	app.post('/initnotes', function(req, res) {
-
 			connection.query('SELECT * FROM notes LEFT JOIN account_stage_notes on notes.id = account_stage_notes.note_id LEFT JOIN account_stages on account_stage_notes.account_stage_id = account_stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN stages on account_stages.stage_id = stages.id WHERE account_stages.id = ?', [req.body.id],function (error, results, fields) {
 				var what_user_sees = "";
 				if (error){
 					what_user_sees = 'Something went wrong - please go back';
 					res.send(what_user_sees);
 				}else{
+					console.log(results);
 					res.render('pages/notes', {
 						dat: results
 					});
