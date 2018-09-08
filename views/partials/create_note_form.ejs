@@ -7,7 +7,7 @@
             </div>
             
             <form id="create" method="POST" action="/create_note/<%= data.id %>">
-                <div class="row form-group">
+                <div class="form-group">
                         <label class="label_editpage">Deal Name:</label>
                         <input type="text" name="name" class="form-control" placeholder="Deal Name" value="<%= data.name %>" required disabled autofocus>
                 </div>
@@ -21,7 +21,7 @@
                         <input type="text" id="company" name="company" class="form-control" placeholder="Company"  value="<%= data.company %>" required disabled>
                     </div>
                 </div>
-                <div class="row form-group">
+                <div class="form-group">
                         <label class="label_editpage">Note:</label>
                         <input type="text" id="note" name="note" class="form-control" placeholder="Note"required>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="col-xs-3 col-md-9">
                     </div>
                     <div class="col-xs-3 col-md-3">
-                        <button type="submit" class="btn btn-outline-warning btn-sm">Submit</button>
+                        <button type="submit" class="btn btn-success btn-sm">Submit</button>
                     </div>
                 </div>
                 <input type="text" id="note_id" name="note_id" class="form-control" placeholder="note_id" value="<%= newID %>" hidden>

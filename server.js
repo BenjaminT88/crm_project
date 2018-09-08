@@ -21,11 +21,6 @@ app.use(methodOverride('_method'));
 // set the view engine to ejs
 	app.set('view engine', 'ejs');
 
-// make public folder static	
-	var path = require("path");
-
-	app.use(express.static("public"));
-
 //session stuff
 	var cookieParser = require('cookie-parser');
 
@@ -512,12 +507,6 @@ app.get('/', function(req, res) {
 		);
 	});
 
-// ========================================================================================
-// ========================================================================================
-			//SEPARATION LINE
-// ========================================================================================
-// ========================================================================================
-
 // ===================
 // main page
 // ===================
@@ -528,23 +517,6 @@ app.get('/', function(req, res) {
 			});
 		});
 	});
-
-// ===================
-// main page -test the calendar
-// ===================
-	app.get('/calendar', isAuthenticated, function(req, res) {
-		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id], function(err, results){
-			res.sendFile(path.join(__dirname, "public/calendar.html"));
-		});
-	});	
-
-// ===================
-// eventjson -test the calendar
-// ===================
-	app.get('/eventjson', isAuthenticated, function(req, res) {
-			res.sendFile(path.join(__dirname, "public/assets/json/events.json"));
-	});	
-
 
 // ===================
 // accounts page - for managers
