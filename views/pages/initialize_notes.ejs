@@ -4,41 +4,41 @@
 	<% include ../partials/head %>
 
 	<% include ../partials/style %>
+
+	<style>
+		#nav_initnotes{
+			color: white;
+		}
+	</style>
 </head>
 
-<body class="container">
+<body>
 
 	<header>
 		<% include ../partials/header %>
 	</header>
 
-	<main class="main-content">
-		<div class="row">
-			<div class="jumbotron">
-				<h2>Select Company</h2>
-
-				<form method="POST" action="/initnotes">
-					<div class="form-group row">
-						<select class="form-control" name="id" required>
+	<div class="chooseCompany">
+			<div class="login-form">				
+				<div class="main-div">
+					<form method="POST" action="/initnotes">
+						<div class="form-group">
+							<label id="seleCompTitle">Select Company: </label>
+							<select id="select_option" name="id" required>
 								<% dat.forEach(function(account) { %>
-										<option value="<%= account.account_id %>"><%= account.company %></option>
+									<option value="<%= account.account_id %>"><%= account.company %></option>
 								<% }); %>
-						</select>
-					</div>
-					<div class="form-group row">
-							<div class="col-sm-10">
-								<button type="submit" class="btn btn-primary">Ok</button>
-							</div>
-					</div>
-				</form>
-
+							</select>
+							<button type="submit" class="btn btn-primary btn-submit">Submit</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</main>
 
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
-	
+<!-- Footer -->
+<% include ../partials/footer %>
+<!-- Footer -->
+
 </body>
 </html>
