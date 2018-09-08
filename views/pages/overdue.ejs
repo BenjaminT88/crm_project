@@ -46,7 +46,7 @@
 							<td><%= data.company %></td>
 							<td><%= data.first_name %> <%= data.last_name %></td>
 							<td><a href="mailto:<%= data.email %>"  target="_top"><%= data.email %></a></td>
-							<td><%= data.due %></td>
+							<td><%= data.datetime %></td>
 							<td>
 								<form method="GET" action="/edit_todo/<%=data.id %>">
 									<button class="btn btn-outline-warning btn-sm">Edit</button>
