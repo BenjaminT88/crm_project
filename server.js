@@ -217,8 +217,14 @@ app.get('/', function(req, res) {
 // show all deals
 // ===================
 	app.get('/deals', isAuthenticated, function(req, res) {
-		connection.query('SELECT account_stages.name, account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage FROM account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id WHERE accounts.user_id = ?', [req.session.user_id], function(err, results){
+		connection.query('SELECT account_stages.name, account_stages.id, accounts.first_name as contact_first_name, accounts.last_name as contact_last_name, tim, users.first_name as rep_first_name, users.last_name as rep_last_name, accounts.company, accounts.id as account_id, account_stages.amount, stage FROM account_stages LEFT JOIN stages ON account_stages.stage_id = stages.id LEFT JOIN accounts on account_stages.account_id = accounts.id LEFT JOIN users on accounts.user_id = users.id WHERE accounts.user_id = 2', function(err, results){
 			if (err) throw err;
+			results = results.map(function(el){
+				var doo = new Date(el.tim);
+				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}`;
+				el['date'] = dString;
+				return el;
+			});
 			res.render('pages/deals', {
 				data: results
 			});
@@ -406,34 +412,24 @@ app.get('/', function(req, res) {
 		});
 	});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ===================
 // show all todos in the future
 // ===================
 	app.get('/todos', isAuthenticated, function(req, res) {
 		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id where due > current_timestamp and accounts.user_id = ?', [req.session.user_id], function(err, results){
 			if (err) throw err;
+			results = results.map(function(el){
+				var doo = new Date(el.due);
+				var hourStr = doo.getHours();
+				var minStr = doo.getMinutes();
+				var secStr = doo.getSeconds();
+				if(hourStr<10){hourStr = "0"+hourStr};
+				if(minStr<10){minStr = "0"+minStr};
+				if(secStr<10){secStr = "0"+secStr};
+				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}  ${hourStr}:${minStr}:${secStr}`;
+				el['datetime'] = dString;
+				return el;
+			});
 			res.render('pages/todos', {
 				data: results
 			});
@@ -446,6 +442,18 @@ app.get('/', function(req, res) {
 	app.get('/overdue', isAuthenticated, function(req, res) {
 		connection.query('SELECT todos.id, todo, name, amount, company, first_name, last_name, email, due FROM todos LEFT JOIN account_stages ON todos.account_stage_id = account_stages.id LEFT JOIN accounts ON account_stages.account_id = accounts.id where due < current_timestamp and accounts.user_id = ?', [req.session.user_id], function(err, results){
 			if (err) throw err;
+			results = results.map(function(el){
+				var doo = new Date(el.due);
+				var hourStr = doo.getHours();
+				var minStr = doo.getMinutes();
+				var secStr = doo.getSeconds();
+				if(hourStr<10){hourStr = "0"+hourStr};
+				if(minStr<10){minStr = "0"+minStr};
+				if(secStr<10){secStr = "0"+secStr};
+				var dString = `${doo.getMonth()+1}/${doo.getDate()+1}/${doo.getFullYear()}  ${hourStr}:${minStr}:${secStr}`;
+				el['datetime'] = dString;
+				return el;
+			});
 			res.render('pages/overdue', {
 				data: results
 			});
@@ -503,54 +511,6 @@ app.get('/', function(req, res) {
 		}
 		);
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ========================================================================================
 // ========================================================================================
