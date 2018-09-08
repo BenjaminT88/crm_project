@@ -23,10 +23,10 @@
 				<div class="main-div">
 					<form method="POST" action="/initnotes">
 						<div class="form-group">
-							<label id="seleCompTitle">Select Company: </label>
+							<label id="seleCompTitle">Select Deal: </label>
 							<select id="select_option" name="id" required>
 								<% dat.forEach(function(account) { %>
-									<option value="<%= account.account_id %>"><%= account.company %></option>
+									<option value="<%= account.id %>"><%= account.name %> - <%= account.company %></option>
 								<% }); %>
 							</select>
 							<button type="submit" class="btn btn-primary btn-submit">Submit</button>
