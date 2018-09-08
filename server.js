@@ -63,7 +63,7 @@ app.get('/', function(req, res) {
 	if(req.session.user_id == undefined){
 		res.redirect('/login');
 	}else{
-		res.redirect('/main');
+		res.redirect('/todos');
 	}
 });
 
@@ -119,7 +119,7 @@ app.get('/', function(req, res) {
 					req.session.role_id = results[0].role_id;
 					req.session.first_name = results[0].first_name;
 					req.session.last_name = results[0].last_name;
-					res.redirect('/main');
+					res.redirect('/');
 					}else{
 					res.render('pages/login_err');
 					}
