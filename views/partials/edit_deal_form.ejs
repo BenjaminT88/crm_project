@@ -1,51 +1,51 @@
 <div class="container">
-		<div class="signUp-form">
-			<div class="main-div">
-				<div class="panel">
-			   		<h2>Edit Deal</h2>
-			   		<p>All fields are required</p>
-				</div>
-				
-				<form id="newaccount" method="POST" action="/update_deal/<%= dat.account_id %>?_method=PUT">
-					<div class="form-group">
-						<label class="label_editpage" for="createdealstage">Select Stage</label>
-						<select class="form-control" name="stage_id" id = "createdealstage" required>
-								<% data.forEach(function(account) { %>
-									<% if(account.id == dat.stage_id) { %>
-										<option selected value="<%= account.id %>"><%= account.stage %></option>
-									<% }else{ %>
-										<option value="<%= account.id %>"><%= account.stage %></option>
-									<% }; %>
-								<% }); %>
-						</select>
-					</div>
-					<div class="form-group">
-						<label class="label_editpage" for="createdealstage">Select Company</label>
-						<select class="form-control" id = "createdealstage" name="account_id" required>
-								<option value="<%= dat.account_id %>"><%= dat.company %></option>
-						</select>
-					</div>						
-					<div class="form-group">
-						<label class="label_editpage">Amount:</label>
-						<input type="text" name="amount" class="form-control" placeholder="Deal Amount" value="<%= dat.amount %>">
-					</div>
-					<div class="form-group">
-						<label class="label_editpage">Deal:</label>
-						<input type="text" name="name" class="form-control" placeholder="Describe" value="<%= dat.name %>">
-					</div>					
-					<div class="row form-group">
-						<div class="col-xs-3 col-md-3">	
-							<button type="submit" class="btn btn-warning btn-sm">Submit Changes</button>
-						</form>
-						</div>
-						<div class="col-xs-3 col-md-6">
-						</div>
-						<div class="col-xs-3 col-md-3">
-							<form method="GET" action="/deals">
-								<button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
-							</form>
-						</div>
-					</div>
+	<div class="signUp-form">
+		<div class="main-div">
+			<div class="panel">
+				   <h2>Edit Deal</h2>
+				   <p>All fields are required</p>
 			</div>
+			
+			<form id="newaccount" method="POST" action="/update_deal/<%= dat.account_id %>?_method=PUT">
+				<div class="form-group">
+					<label class="label_editpage" for="createdealstage">Select Stage</label>
+					<select class="form-control" name="stage_id" id = "createdealstage" required>
+							<% data.forEach(function(account) { %>
+								<% if(account.id == dat.stage_id) { %>
+									<option selected value="<%= account.id %>"><%= account.stage %></option>
+								<% }else{ %>
+									<option value="<%= account.id %>"><%= account.stage %></option>
+								<% }; %>
+							<% }); %>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="label_editpage" for="createdealstage">Select Company</label>
+					<select class="form-control" id = "createdealstage" name="account_id" required>
+							<option value="<%= dat.account_id %>"><%= dat.company %></option>
+					</select>
+				</div>						
+				<div class="form-group">
+					<label class="label_editpage">Amount:</label>
+					<input type="text" name="amount" class="form-control" placeholder="Deal Amount" value="<%= dat.amount %>">
+				</div>
+				<div class="form-group">
+					<label class="label_editpage">Deal:</label>
+					<input type="text" name="name" class="form-control" placeholder="Describe" value="<%= dat.name %>">
+				</div>					
+				<div class="row form-group">
+					<div class="col-xs-3 col-md-3">	
+						<button type="submit" class="btn btn-warning btn-sm">Submit Changes</button>
+					</form>
+					</div>
+					<div class="col-xs-3 col-md-6">
+					</div>
+					<div class="col-xs-3 col-md-3">
+						<form method="GET" action="/deals">
+							<button type="submit" class="btn btn-secondary btn-sm">Cancel</button>
+						</form>
+					</div>
+				</div>
 		</div>
 	</div>
+</div>
