@@ -3,249 +3,249 @@
 
 <style>
 
-/* For ALL pages*/
-	.main-content{
-		padding-top: 120px;
-	}
-	.table{
-		margin-bottom: 100px;
-	}
-	.table thead th {
-		border-bottom: 2px solid transparent;
-	}
-	.table td, .table th {
-		border-top: 1px solid transparent;
-	}
-	.table-dark td, .table-dark th, .table-dark thead th {
-		border-color: transparent;
-	}
-
-	/*	Sticky footer styles
-		-------------------------------------------------- */
-		html {
-			position: relative;
-			min-height: 100%;
+	/* For ALL pages*/
+		.main-content{
+			padding-top: 120px;
 		}
-		body {
-			margin-bottom: 60px; /* Margin bottom by footer height */
+		.table{
+			margin-bottom: 100px;
 		}
-		.footer {
-			position: absolute;
-			bottom: 0;
-			width: 100%;
-			height: 40px;
-			background-color: transparent;
+		.table thead th {
+			border-bottom: 2px solid transparent;
 		}
-		.container {
-		width: auto;
-		max-width: 680px;
-		padding: 0 0px;
+		.table td, .table th {
+			border-top: 1px solid transparent;
 		}
-	/*  End of Sticky footer styles
-		-------------------------------------------------- */
-
-/* For / accounts page */
-	#fix-thead{
-		padding-top: 0px;
-		position: fixed;
-		top: 150px;
-	}
+		.table-dark td, .table-dark th, .table-dark thead th {
+			border-color: transparent;
+		}
 	
-/* For /users page */
-	#addUserBtn{
-		width: 0px;
-	}
-
-/* For /init notes page */
-	.chooseCompany{
-		margin-top: 130px;
-	}
-	#seleCompTitle{
-		padding-left: 15px;
-		padding-right: 15px;
-		font-weight: bold;
-		font-size: 20px;
-	}
-	#select_option{
-		padding: 5px;
-	}
-	.btn-submit{
-		height: 35px;
-		font-size: 15px;
-		padding: 2px 10px;
-		margin-left: 10px;
-		margin-top: -5px;
-	}
-
-/* For /notes page */
-	.note_page_padding{
-		padding-top: 0px;
-	}
-
-	#backarrow_notes{
-		float: left;
-		margin-left: 15px;
-	}
-
-/* For /todo /overdue page */
-	.currentPage{
-		color: rgb(74, 108, 153);
-		font-size: 18px;
-	}
-
-/* For /deals page */	
-	.deal-container{
-		margin-top: 130px;
-	}
-	.deal_page_padding{
-		padding-top: 0px;
-	}
-	#stagesView{
-		margin: 0 0px;
-	}
-	.nav-tabs {
-    	border-bottom: 1px solid #dee2e6;
-	}
-	.tableContainer{
-		margin-top: 10px;
-	}
-	.stageContainer{
-		margin-top: 10px;
-	}
-	.stage-title{
-		background-color: rgba(209, 208, 208, 0.979);
-		font-size: 18px;
-		padding: 10px;
-		text-align: center;
-		border: 3px solid rgb(99, 99, 99);
-	}
-	.deal-info{
-		margin-bottom: auto;
-	}
-	.dealbtn{
-		margin-bottom: 10px; 
-		white-space: normal;  /*wrap button text into multiple lines*/
-	}
-	p{
-		padding: 0;
-		margin: 0;	
-	}
-	.fa-arrow-right{
-		padding-top: 13px;
-	}
-
-	/* Button Color for Stage: Lead */
-		.btnLead .btn-block {
-			color: rgb(0, 0, 0);
-			background-color: rgb(214, 210, 200);
-			border-color: rgb(214, 210, 200);
+		/*	Sticky footer styles
+			-------------------------------------------------- */
+			html {
+				position: relative;
+				min-height: 100%;
+			}
+			body {
+				margin-bottom: 60px; /* Margin bottom by footer height */
+			}
+			.footer {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 40px;
+				background-color: transparent;
+			}
+			.container {
+			width: auto;
+			max-width: 680px;
+			padding: 0 0px;
+			}
+		/*  End of Sticky footer styles
+			-------------------------------------------------- */
+	
+	/* For / accounts page */
+		#fix-thead{
+			padding-top: 0px;
+			position: fixed;
+			top: 150px;
 		}
-		.btnLead .btn-block:hover,
-		.btnLead .btn-block:focus, 
-		.btnLead .btn-block:active:focus, 
-		.btnLead .btn-block.active:focus,
-		.btnLead .btn-block:active,
-		.btnLead .btn-block.active {
-			color: rgb(0, 0, 0);
-			background-color: rgb(194, 191, 184);
-			border-color: rgb(194, 191, 184);
+		
+	/* For /users page */
+		#addUserBtn{
+			width: 0px;
 		}
-	/* Button Color for Stage: Opportunity */
-		.btnOpportunity .btn-block {
-			color: black;
-			background-color: rgb(175, 216, 209);
-			border-color:  rgb(175, 216, 209);
+	
+	/* For /init notes page */
+		.chooseCompany{
+			margin-top: 130px;
 		}
-		.btnOpportunity .btn-block:hover,
-		.btnOpportunity .btn-block:focus, 
-		.btnOpportunity .btn-block:active:focus, 
-		.btnOpportunity .btn-block.active:focus,
-		.btnOpportunity .btn-block:active,
-		.btnOpportunity .btn-block.active {
-			color: black;
-			background-color:  rgb(131, 202, 190);
-			border-color: rgb(131, 202, 190);
+		#seleCompTitle{
+			padding-left: 15px;
+			padding-right: 15px;
+			font-weight: bold;
+			font-size: 20px;
 		}
-	/* Button Color for Stage: Proposal Out */
-		.btnProposalOut .btn-block {
-			color: black;
-			background-color: #BDCEBE;
-			border-color: #BDCEBE;
+		#select_option{
+			padding: 5px;
 		}
-		.btnProposalOut .btn-block:hover,
-		.btnProposalOut .btn-block:focus, 
-		.btnProposalOut .btn-block:active:focus, 
-		.btnProposalOut .btn-block.active:focus,
-		.btnProposalOut .btn-block:active,
-		.btnProposalOut .btn-block.active {
-			color: black;
-			background-color: rgb(150, 199, 153);
-			border-color:  rgb(150, 199, 153);
+		.btn-submit{
+			height: 35px;
+			font-size: 15px;
+			padding: 2px 10px;
+			margin-left: 10px;
+			margin-top: -5px;
 		}
-	/* Button Color for Stage: Signature In */
-		.btnSignatureIn .btn-block {
-			color: black;
-			background-color: rgb(207, 214, 140);
-			border-color: rgb(207, 214, 140);
+	
+	/* For /notes page */
+		.note_page_padding{
+			padding-top: 0px;
 		}
-		.btnSignatureIn .btn-block:hover,
-		.btnSignatureIn .btn-block:focus, 
-		.btnSignatureIn .btn-block:active:focus, 
-		.btnSignatureIn .btn-block.active:focus,
-		.btnSignatureIn .btn-block:active,
-		.btnSignatureIn .btn-block.active {
-			color: black;
-			background-color: rgb(158, 167, 82);
-			border-color: rgb(158, 167, 82);
+	
+		#backarrow_notes{
+			float: left;
+			margin-left: 15px;
 		}
-	/* Button Color for Stage: Docs Out */
-		.btnDocsOut .btn-block {
-			color: black;
-			background-color: rgb(202, 187, 198);
-			border-color: rgb(202, 187, 198);
+	
+	/* For /todo /overdue page */
+		.currentPage{
+			color: rgb(74, 108, 153);
+			font-size: 18px;
 		}
-		.btnDocsOut .btn-block:hover,
-		.btnDocsOut .btn-block:focus, 
-		.btnDocsOut .btn-block:active:focus, 
-		.btnDocsOut .btn-block.active:focus,
-		.btnDocsOut .btn-block:active,
-		.btnDocsOut .btn-block.active {
-			color: black;
-			background-color: rgb(207, 157, 194);
-			border-color: rgb(207, 157, 194);
+	
+	/* For /deals page */	
+		.deal-container{
+			margin-top: 130px;
 		}
-	/* Button Color for Stage: Docs In */
-		.btnDocsIn .btn-block {
-			color: black;
-			background-color: rgb(163, 219, 139);
-			border-color: rgb(163, 219, 139);
+		.deal_page_padding{
+			padding-top: 0px;
 		}
-		.btnDocsIn .btn-block:hover,
-		.btnDocsIn .btn-block:focus, 
-		.btnDocsIn .btn-block:active:focus, 
-		.btnDocsIn .btn-block.active:focus,
-		.btnDocsIn .btn-block:active,
-		.btnDocsIn .btn-block.active {
-			color: black;
-			background-color: rgb(128, 192, 101);
-			border-color: rgb(128, 192, 101);
+		#stagesView{
+			margin: 0 0px;
 		}
-	/* Button Color for Stage: Funded */
-		.btnFunded .btn-block {
-			color: black;
-			background-color: rgb(143, 196, 64);
-			border-color: rgb(143, 196, 64);
+		.nav-tabs {
+			border-bottom: 1px solid #dee2e6;
 		}
-		.btnFunded .btn-block:hover,
-		.btnFunded .btn-block:focus, 
-		.btnFunded .btn-block:active:focus, 
-		.btnFunded .btn-block.active:focus,
-		.btnFunded .btn-block:active,
-		.btnFunded .btn-block.active {
-			color: black;
-			background-color: rgb(113, 153, 53);
-			border-color:  rgb(113, 153, 53);
+		.tableContainer{
+			margin-top: 10px;
 		}
-
-
-</style>
+		.stageContainer{
+			margin-top: 10px;
+		}
+		.stage-title{
+			background-color: rgba(209, 208, 208, 0.979);
+			font-size: 18px;
+			padding: 10px;
+			text-align: center;
+			border: 3px solid rgb(99, 99, 99);
+		}
+		.deal-info{
+			margin-bottom: auto;
+		}
+		.dealbtn{
+			margin-bottom: 10px; 
+			white-space: normal;  /*wrap button text into multiple lines*/
+		}
+		p{
+			padding: 0;
+			margin: 0;	
+		}
+		.fa-arrow-right{
+			padding-top: 13px;
+		}
+	
+		/* Button Color for Stage: Lead */
+			.btnLead .btn-block {
+				color: rgb(0, 0, 0);
+				background-color: rgb(214, 210, 200);
+				border-color: rgb(214, 210, 200);
+			}
+			.btnLead .btn-block:hover,
+			.btnLead .btn-block:focus, 
+			.btnLead .btn-block:active:focus, 
+			.btnLead .btn-block.active:focus,
+			.btnLead .btn-block:active,
+			.btnLead .btn-block.active {
+				color: rgb(0, 0, 0);
+				background-color: rgb(194, 191, 184);
+				border-color: rgb(194, 191, 184);
+			}
+		/* Button Color for Stage: Opportunity */
+			.btnOpportunity .btn-block {
+				color: black;
+				background-color: rgb(175, 216, 209);
+				border-color:  rgb(175, 216, 209);
+			}
+			.btnOpportunity .btn-block:hover,
+			.btnOpportunity .btn-block:focus, 
+			.btnOpportunity .btn-block:active:focus, 
+			.btnOpportunity .btn-block.active:focus,
+			.btnOpportunity .btn-block:active,
+			.btnOpportunity .btn-block.active {
+				color: black;
+				background-color:  rgb(131, 202, 190);
+				border-color: rgb(131, 202, 190);
+			}
+		/* Button Color for Stage: Proposal Out */
+			.btnProposalOut .btn-block {
+				color: black;
+				background-color: #BDCEBE;
+				border-color: #BDCEBE;
+			}
+			.btnProposalOut .btn-block:hover,
+			.btnProposalOut .btn-block:focus, 
+			.btnProposalOut .btn-block:active:focus, 
+			.btnProposalOut .btn-block.active:focus,
+			.btnProposalOut .btn-block:active,
+			.btnProposalOut .btn-block.active {
+				color: black;
+				background-color: rgb(150, 199, 153);
+				border-color:  rgb(150, 199, 153);
+			}
+		/* Button Color for Stage: Signature In */
+			.btnSignatureIn .btn-block {
+				color: black;
+				background-color: rgb(207, 214, 140);
+				border-color: rgb(207, 214, 140);
+			}
+			.btnSignatureIn .btn-block:hover,
+			.btnSignatureIn .btn-block:focus, 
+			.btnSignatureIn .btn-block:active:focus, 
+			.btnSignatureIn .btn-block.active:focus,
+			.btnSignatureIn .btn-block:active,
+			.btnSignatureIn .btn-block.active {
+				color: black;
+				background-color: rgb(158, 167, 82);
+				border-color: rgb(158, 167, 82);
+			}
+		/* Button Color for Stage: Docs Out */
+			.btnDocsOut .btn-block {
+				color: black;
+				background-color: rgb(202, 187, 198);
+				border-color: rgb(202, 187, 198);
+			}
+			.btnDocsOut .btn-block:hover,
+			.btnDocsOut .btn-block:focus, 
+			.btnDocsOut .btn-block:active:focus, 
+			.btnDocsOut .btn-block.active:focus,
+			.btnDocsOut .btn-block:active,
+			.btnDocsOut .btn-block.active {
+				color: black;
+				background-color: rgb(207, 157, 194);
+				border-color: rgb(207, 157, 194);
+			}
+		/* Button Color for Stage: Docs In */
+			.btnDocsIn .btn-block {
+				color: black;
+				background-color: rgb(163, 219, 139);
+				border-color: rgb(163, 219, 139);
+			}
+			.btnDocsIn .btn-block:hover,
+			.btnDocsIn .btn-block:focus, 
+			.btnDocsIn .btn-block:active:focus, 
+			.btnDocsIn .btn-block.active:focus,
+			.btnDocsIn .btn-block:active,
+			.btnDocsIn .btn-block.active {
+				color: black;
+				background-color: rgb(128, 192, 101);
+				border-color: rgb(128, 192, 101);
+			}
+		/* Button Color for Stage: Funded */
+			.btnFunded .btn-block {
+				color: black;
+				background-color: rgb(143, 196, 64);
+				border-color: rgb(143, 196, 64);
+			}
+			.btnFunded .btn-block:hover,
+			.btnFunded .btn-block:focus, 
+			.btnFunded .btn-block:active:focus, 
+			.btnFunded .btn-block.active:focus,
+			.btnFunded .btn-block:active,
+			.btnFunded .btn-block.active {
+				color: black;
+				background-color: rgb(113, 153, 53);
+				border-color:  rgb(113, 153, 53);
+			}
+	
+	
+	</style>

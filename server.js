@@ -546,7 +546,7 @@ app.get('/', function(req, res) {
 // ===================
 	app.get('/main', isAuthenticated, function(req, res) {
 		connection.query('SELECT * FROM accounts WHERE user_id = ?', [req.session.user_id], function(err, results){
-			res.render('pages/main', {
+			res.render('pages/todos', {
 				data: results
 			});
 		});
